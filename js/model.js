@@ -1,3 +1,5 @@
+let score = 0;
+let trial = 0;
 const questions = [
     "Programming language for iOS development", 
     "The oldest programming language",
@@ -10,17 +12,22 @@ const questions = [
 ];
 
 const answers = [
-    ""
+    "Swift",
+    "",
+    "Python"
 ];
 
 const createObj = function(questions, answers, data_size) {
     let data_array = [];
+    
+    //Check Data.
     if(questions.length != answers.length) {
         console.log("Please check questions and answers");
         return false;
     }
 
     for(let i = 0; i < data_size; ++i) {
+        
         const obj = {
             "question": questions[i],
             "answer": answers[i],
