@@ -17,7 +17,7 @@ const answers = [
     "Python"
 ];
 
-const createObj = function(questions, answers, data_size) {
+const createDataObj = (questions, answers, data_size) => {
     let data_array = [];
     
     //Check Data.
