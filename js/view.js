@@ -1,5 +1,39 @@
 const SCORE_TEXT = "Score : " + score;
 const TRIAL_TEXT = "Trial : " + trial;
+const RESET_BTN = "RESET";
+const SAVE_BTN = "SAVE";
+
+const navBar = () => {
+    const $div = $('<div/>').attr({
+        id : 'navBarContainer'
+    });
+    const $ul = $('<ul/>');
+
+    //Navbar links.
+    const signup = $('<a/>')
+    . attr({
+        class : 'navLinks',
+        href : '#'
+    })
+    .text('Sign up');
+    
+    const login = $('<a/>')
+    . attr({
+        class : 'navLinks',
+        href : '#'
+    })
+    .text('Log in');
+
+    const ranking = $('<a/>')
+    .attr({
+        class : 'navLinks',
+        href : 'rank.html'
+    })
+    .text('Ranking');
+
+    $($div).append(signup, login, ranking);
+    $('#navbar').append($div);
+}
 
 const playData = () => {
     const score = $('<span/>').attr('id', 'score')
@@ -18,7 +52,7 @@ const hangCatImg = () => {
     });
 
     const img = $('<img/>').attr({
-        src : 'images/hang_0.png',
+        src : 'images/hangCat/hanged0.png',
         alt : 'hang-cat-image',
         id : 'hangCatImg'
     });
@@ -28,18 +62,18 @@ const hangCatImg = () => {
 }
 
 const resetBtn = () => {
-    const btn = $('<button/>').attr({
-        class : 'btn btn-primary',
+    const btn = $('<button/>')
+    .attr({
+        class : 'btn btn-danger',
         id : 'restBtn',
-        value : 'RESET'
-    })
+    }).text(RESET_BTN);
 
-    $('#rest_btn_container').append(btn);
+    $('#reset_btn_container').append(btn);
 }
 
-/******************************************/
 const hint = (current_hint) => {
-    const $div = $('<div/>').attr({
+    const $div = $('<div/>')
+    .attr({
         class : 'col-12',
         id : 'currentHint'
     }).text(current_hint);
@@ -53,9 +87,7 @@ const word = (current_word) => {
     });
 }
 
-/******************************************/
-
-const letters = () => {
+const letters = function() {
     for (let i = 'a'.charCodeAt(0); i <= 'z'.charCodeAt(0); i++) {
         const letter = String.fromCharCode(i);
         
@@ -65,7 +97,7 @@ const letters = () => {
             class : 'letters',
             id : letter, /*Eg : 'a' */
             alt : 'letter-img-' + letter
-        }).onclick(function() {
+        }).click(function() {
             const letter_id = this.id;
         });
 
@@ -75,10 +107,30 @@ const letters = () => {
 
 const saveBtn = () => {
     const btn = $('<button/>').attr({
-        class : 'btn btn-danger',
-        id : 'saveBtn',
-        value : 'SAVE'
-    });
+        class : 'btn btn-primary',
+        id : 'saveBtn'
+    }).text(SAVE_BTN);
 
     $('#save_btn_container').append(btn);
 }
+
+const View = {
+    createNavBar : navBar,
+    createPlayData : playData,
+    createHangImg : hangCatImg,
+    createResetBtn : resetBtn,
+    createHint : hint,
+    createWord : word,
+    createLetters : letters,
+    createSaveBtn : saveBtn
+};
+
+View.createNavBar();
+View.createPlayData();
+View.createHangImg();
+View.createResetBtn();
+View.createHint();
+View.createLetters();
+View.createWord();
+View.createLetters();
+View.createSaveBtn();
