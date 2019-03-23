@@ -3,6 +3,8 @@ const TRIAL_TEXT = "Trial : " + trial;
 const RESET_BTN = "RESET";
 const SAVE_BTN = "SAVE";
 const APP_NAME = "HangCat Game";
+const MODAL_SIGNUP_TEXT = "Sign up";
+const MODAL_LOGIN_TEXT = "Sign up";
 
 const appName = () => {
     const appName = $('<a/>').attr({
@@ -148,9 +150,13 @@ const modal = () => {
 
     //Create contents.
     const header = $('<div/>').attr('class', 'modal-header');
+    const closeBtn = $('<button/>').attr({
+        class: "close",
+        id: "modalClose",
+        'data-dismiss': 'modal'
+    }).text('x');
     const middle = $('<div/>').attr('class', 'modal-header');
     const form =  $('<div/>').attr('role', 'form');
-    
     const formContent = $('<div/>').attr({
         class: "form-group",
         id: "formContainer"
@@ -172,13 +178,31 @@ const modal = () => {
     $($div).append($div2);
     $($div2).append($div3);
     $($div3).append(header, middle, form, $div4, $footer);
+    $(header).append(closeBtn);
     $(form).append(formContent);
     $($div4).append(assertion);
     $('#main_body').append($div);
 }
 
 const signUp = () => {
-    
+    const header = $('<div/>').attr('class', 'modalHeaders')
+                    .text(MODAL_SIGNUP_TEXT);
+    const name = $('<input/>').attr({
+        type : 'text',
+        class : 'modalInputs',
+        placeholder : 'User name'
+    });
+    const email = $('<input/>').attr({
+        type : 'text',
+        class : 'modalInputs',
+        placeholder : 'E-mail address'
+    });
+    const password = $('<input/>').attr({
+        type : 'text',
+        class : 'modalInputs',
+        placeholder : 'Password'
+    });
+
 }
 
 const logIn = () => {
@@ -198,12 +222,3 @@ const View = {
     createModal : modal
 };
 
-View.showAppName();
-View.createNavBar();
-View.createPlayData();
-View.createHangImg();
-View.createResetBtn();
-View.createHint("Hint: Cute cat Meow");
-View.createWord("mysql");
-View.createLetters();
-View.createSaveBtn();
