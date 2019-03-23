@@ -2,6 +2,11 @@ const SCORE_TEXT = "Score : " + score;
 const TRIAL_TEXT = "Trial : " + trial;
 const RESET_BTN = "RESET";
 const SAVE_BTN = "SAVE";
+const APP_NAME = "Hang Cat Name";
+
+const appName = () => {
+    $('#app_name').html(APP_NAME);
+}
 
 const navBar = () => {
     const $div = $('<div/>').attr({
@@ -83,8 +88,25 @@ const hint = (current_hint) => {
 
 const word = (current_word) => {
     const $div = $('<div/>').attr({
-        class : 'col-12'
+        class : 'col-12',
+        id : 'curWordField'
     });
+
+    for(let i = 0; i < current_word.length; ++i) {
+        const $p = $('<p/>').attr({
+            class : 'answerLetterContainers',
+            id : 'answer' + i + 'con'
+        });
+
+        const letter = $('<span/>').attr({
+            class : 'answerLetters',
+            id : 'answer' + i
+        }).text(current_word[i]);
+
+        $($p).append(letter);
+        $($div).append($p);
+        $('#word_container').append($div);
+    }
 }
 
 const letters = function() {
@@ -114,7 +136,60 @@ const saveBtn = () => {
     $('#save_btn_container').append(btn);
 }
 
+const modal = () => {
+    //Create Main container.
+    const $div = $('<div/>').attr({
+        class: "modal fade",
+        id: "modalMainContainer"
+    });
+
+    //Create sub container.
+    const $div2 = $('<div/>').attr('class', 'modal-dialog');
+
+    //Create content container.
+    const $div3 = $('<div/>').attr('class', 'modal-content');
+
+    //Create contents.
+    const header = $('<div/>').attr('class', 'modal-header');
+    const middle = $('<div/>').attr('class', 'modal-header');
+    const form =  $('<div/>').attr('role', 'form');
+    
+    const formContent = $('<div/>').attr({
+        class: "form-group",
+        id: "formContainer"
+    });
+
+    //Container for assertion.
+    const $div4 = $('<div/>').attr({
+        class: "modal-header",
+        id: "assertionContainer"
+    }); /*This is hidden by default (Set in CSS)*/
+
+    const assertion = $('<p/>').attr({
+        class: "assertions",
+        id: "assertion"
+    });
+    
+    const footer = $('<div/>').attr('class', 'modal-footer');
+
+    $($div).append($div2);
+    $($div2).append($div3);
+    $($div3).append(header, middle, form, $div4, $footer);
+    $(form).append(formContent);
+    $($div4).append(assertion);
+    $('#main_body').append($div);
+}
+
+const signUp = () => {
+    
+}
+
+const logIn = () => {
+
+}
+
 const View = {
+    showAppName : appName,
     createNavBar : navBar,
     createPlayData : playData,
     createHangImg : hangCatImg,
@@ -122,15 +197,17 @@ const View = {
     createHint : hint,
     createWord : word,
     createLetters : letters,
-    createSaveBtn : saveBtn
+    createSaveBtn : saveBtn,
+    createModal : modal
 };
 
+View.showAppName();
 View.createNavBar();
 View.createPlayData();
 View.createHangImg();
 View.createResetBtn();
 View.createHint();
 View.createLetters();
-View.createWord();
+View.createWord("DUMMY");
 View.createLetters();
 View.createSaveBtn();

@@ -4,7 +4,7 @@ const questions = [
     "Programming language for iOS development", 
     "The oldest programming language",
     "Free, Interpretred, released in 1991 ",
-    "",
+    "Company provide AWS service",
     "",
     "",
     "",
@@ -14,17 +14,12 @@ const questions = [
 const answers = [
     "Swift",
     "",
-    "Python"
+    "Python",
+    "Amazon"
 ];
 
 const createDataObj = (questions, answers, data_size) => {
     let data_array = [];
-    
-    //Check Data.
-    if(questions.length != answers.length) {
-        console.log("Please check questions and answers");
-        return false;
-    }
 
     for(let i = 0; i < data_size; ++i) {
         
@@ -38,4 +33,9 @@ const createDataObj = (questions, answers, data_size) => {
     }
 
     return data_array;
+}
+
+const playSound = (audio_file) => {
+    const sound = new Audio(audio_file);
+    sound.play();
 }
