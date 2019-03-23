@@ -3,3 +3,63 @@ body {
     padding: 0;
 }
 
+a {
+    text-decoration: none;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+/*********************Index.html**************************/
+#appName_container {
+    font-size: 3em;
+}
+
+#navbar {
+    text-align: right;
+    padding-top: 0.8em;
+}
+
+.navLinks {
+    font-size: 2em;
+    margin: 0.5em;
+}
+
+#playdata {
+    text-align: center;
+}
+
+#score, #trial {
+    font-size: 2em;
+    margin: 1em;
+}
+
+#curWordField {
+    text-align: center;
+}
+
+#hint_container {
+    text-align: center;
+}
+
+#hint {
+    width: 80%;
+    margin: auto;
+    background: blue;
+    font-size: 2em;
+}
+
+.answerLetterContainers {
+    width: 8%;
+    margin: 0.3em;
+    font-size: 3em;
+    display: inline-block;
+    text-align: center;
+    border-bottom: 5px solid black;
+}
+
+.letterBtns {
+    width:9%;
+    margin: 0.3em;
+}

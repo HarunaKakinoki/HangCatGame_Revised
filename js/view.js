@@ -2,18 +2,17 @@ const SCORE_TEXT = "Score : " + score;
 const TRIAL_TEXT = "Trial : " + trial;
 const RESET_BTN = "RESET";
 const SAVE_BTN = "SAVE";
-const APP_NAME = "Hang Cat Name";
+const APP_NAME = "HangCat Game";
 
 const appName = () => {
-    $('#app_name').html(APP_NAME);
+    const appName = $('<a/>').attr({
+        href : 'index.html',
+        id : 'appName'
+    }).html(APP_NAME);
+    $('#appName_container').append(appName);
 }
 
 const navBar = () => {
-    const $div = $('<div/>').attr({
-        id : 'navBarContainer'
-    });
-    const $ul = $('<ul/>');
-
     //Navbar links.
     const signup = $('<a/>')
     . attr({
@@ -36,8 +35,7 @@ const navBar = () => {
     })
     .text('Ranking');
 
-    $($div).append(signup, login, ranking);
-    $('#navbar').append($div);
+    $('#navbar').append(signup, login, ranking);
 }
 
 const playData = () => {
@@ -79,8 +77,7 @@ const resetBtn = () => {
 const hint = (current_hint) => {
     const $div = $('<div/>')
     .attr({
-        class : 'col-12',
-        id : 'currentHint'
+        id : 'hint'
     }).text(current_hint);
 
     $('#hint_container').append($div);
@@ -116,7 +113,7 @@ const letters = function() {
         //Generate each letter img.
         const letterImg = $('<img/>').attr({
             src : 'images/letters/' + letter + '.png',
-            class : 'letters',
+            class : 'letterBtns',
             id : letter, /*Eg : 'a' */
             alt : 'letter-img-' + letter
         }).click(function() {
@@ -206,8 +203,7 @@ View.createNavBar();
 View.createPlayData();
 View.createHangImg();
 View.createResetBtn();
-View.createHint();
-View.createLetters();
-View.createWord("DUMMY");
+View.createHint("Hint: Cute cat Meow");
+View.createWord("mysql");
 View.createLetters();
 View.createSaveBtn();
