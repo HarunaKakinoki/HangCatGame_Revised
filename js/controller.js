@@ -9,6 +9,7 @@ const index_init = () => {
     View.createLetters();
     View.createSaveBtn();
     View.createSignUpModal();
+    View.createLoginModal();
 } 
 
 index_init();

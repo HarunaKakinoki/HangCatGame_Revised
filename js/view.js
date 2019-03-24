@@ -33,7 +33,9 @@ const navBar = () => {
     const login = $('<a/>')
     . attr({
         class : 'navLinks',
-        href : '#'
+        href : '#',
+        'data-toggle': 'modal',
+        'data-target': '#login_modal' /*Trigger login modal window*/
     })
     .text(LOGIN_TEXT);
 
@@ -219,7 +221,37 @@ const signUp = () => {
 }
 
 const logIn = () => {
+    const modalName = 'login';
+   
+    //Create a framework of a modal window.
+    modal(modalName);
 
+    const title = $('<div/>').attr('class', 'modalHeaders')
+                    .text(LOGIN_TEXT);
+    
+    //Email input field.
+    const email = $('<input/>').attr({
+        type : 'text',
+        class : 'modalInputs',
+        placeholder : 'E-mail address'
+    });
+    const emailAlert = $('<p/>').attr('class', 'inputAlerts')
+                        .text(EMAIL_ALERT_TEXT);
+    //Password input field.
+    const password = $('<input/>').attr({
+        type : 'text',
+        class : 'modalInputs',
+        placeholder : 'Password'
+    });
+    const passwordAlert = $('<p/>').attr('class', 'inputAlerts')
+                        .text(PASSWORD_ALERT_TEXT);
+
+    const submit = $('<button/>').attr('class', 'btn btn-primary')
+                    .text(SUBMIT_BTN);
+
+    $('#' + modalName + '_title').append(title);
+    $('#' + modalName + '_content').append(emailAlert, email, passwordAlert, password);
+    $('#' + modalName + '_footer').append(submit);
 }
 
 const openModal = (modal_id) => {
@@ -236,6 +268,7 @@ const View = {
     createWord : word,
     createLetters : letters,
     createSaveBtn : saveBtn,
-    createSignUpModal : signUp
+    createSignUpModal : signUp,
+    createLoginModal : logIn
 };
 
