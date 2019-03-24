@@ -8,8 +8,10 @@ const index_init = () => {
     View.createWord("mysql");
     View.createLetters();
     View.createSaveBtn();
+    View.createSignUpModal();
 } 
 
 index_init();
 playSound("sounds/moveToNext.mp3");
+
 
