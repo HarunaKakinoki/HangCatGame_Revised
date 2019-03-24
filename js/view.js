@@ -69,11 +69,11 @@ const hangCatImg = () => {
 const resetBtn = () => {
     const btn = $('<button/>')
     .attr({
-        class : 'btn btn-danger',
+        class : 'btn btn-danger buttons',
         id : 'restBtn',
     }).text(RESET_BTN);
 
-    $('#reset_btn_container').append(btn);
+    $('#buttons_container').append(btn);
 }
 
 const hint = (current_hint) => {
@@ -128,11 +128,11 @@ const letters = function() {
 
 const saveBtn = () => {
     const btn = $('<button/>').attr({
-        class : 'btn btn-primary',
+        class : 'btn btn-primary buttons',
         id : 'saveBtn'
     }).text(SAVE_BTN);
 
-    $('#save_btn_container').append(btn);
+    $('#buttons_container').append(btn);
 }
 
 const modal = () => {

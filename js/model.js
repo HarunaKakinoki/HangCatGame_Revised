@@ -37,5 +37,5 @@ const createDataObj = (questions, answers, data_size) => {
 
 const playSound = (audio_file) => {
     const sound = new Audio(audio_file);
-    sound.play();
+    //sound.play();
 }
