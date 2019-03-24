@@ -11,6 +11,7 @@ const index_init = () => {
     View.createSignUpModal();
     View.createLoginModal();
     View.createRestartModal();
+    View.createGameOverModal();
 } 
 
 index_init();

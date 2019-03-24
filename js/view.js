@@ -7,8 +7,11 @@ const SIGNUP_TEXT = "Sign up";
 const LOGIN_TEXT = "Log in";
 const RESTART_TITLE = "Restart";
 const RESTART_BODY = "Are you sure to restart game? Score will be 0."
+const GAME_OVER_TITLE = "GAME OVER";
+const GAME_OVER_BODY = "You have already made mistakes 7 times...";
 const RANKING_TEXT = "Ranking"
 const SUBMIT_BTN = "SUBMIT";
+const CLOSE_BTN = "CLOSE";
 const NAME_ALERT_TEXT = "Please enter valid user name.";
 const EMAIL_ALERT_TEXT = "Please enter valid email address.";
 const PASSWORD_ALERT_TEXT = "Please enter valid password.";
@@ -44,7 +47,9 @@ const navBar = () => {
     const ranking = $('<a/>')
     .attr({
         class : 'navLinks',
-        href : 'rank.html'
+        href : '#',
+        'data-toggle': 'modal',
+        'data-target': '#gameover_modal' /*Trigger login modal window*/
     })
     .text('Ranking');
 
@@ -288,6 +293,41 @@ const restart = () => {
     $('#' + modalName + '_footer').append(yesBtn, noBtn);
 }
 
+const gameover = () => {
+    const modalName = 'gameover';
+    
+    //Create a framwork of a modal window.
+    modal(modalName);
+
+    const title = $('<div/>').attr('class', 'modalTitles')
+    .text(GAME_OVER_TITLE);
+    
+    const message = $('<div/>').attr('id', 'restartMessage' )
+                    .text(GAME_OVER_BODY);
+    const $img = $('<img/>').attr({
+        src: 'images/angelCat.png',
+        id: 'gameOverImg',
+        alt: 'angel-cat-image'
+    })
+    
+    const  restartBtn = $('<button/>').attr({
+        type: 'button',
+        class: 'btn btn-primary'
+    })
+    .text(RESTART_BTN);
+
+    const  closeBtn = $('<button/>').attr({
+        type: 'button',
+        class: 'btn btn-danger',
+        'data-dismiss': 'modal'
+    })
+    .text(CLOSE_BTN);
+
+    $('#' + modalName + '_title').append(title);
+    $('#' + modalName + '_content').append(message, $img);
+    $('#' + modalName + '_footer').append(restartBtn, closeBtn);
+}
+
 const View = {
     showAppName : appName,
     createNavBar : navBar,
@@ -300,6 +340,7 @@ const View = {
     createSaveBtn : saveBtn,
     createSignUpModal : signUp,
     createLoginModal : logIn,
-    createRestartModal : restart
+    createRestartModal : restart,
+    createGameOverModal : gameover
 };
 
