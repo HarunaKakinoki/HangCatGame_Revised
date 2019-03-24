@@ -26,13 +26,10 @@ const navBar = () => {
         class : 'navLinks',
         href : '#',
         'data-toggle': 'modal',
-        'data-target': '#signup_modal'
+        'data-target': '#signup_modal' /*Trigger signup modal window*/
     })
-    .text(SIGNUP_TEXT)
-    .click(function() {
-        openModal('#signUp')
-    });
-    
+    .text(SIGNUP_TEXT);
+
     const login = $('<a/>')
     . attr({
         class : 'navLinks',

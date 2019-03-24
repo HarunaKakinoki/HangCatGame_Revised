@@ -2,7 +2,7 @@ html, body {
     margin: 0;
     padding: 0;
     height:100%;
-    width: 99.4%;
+    width: 100%;
 }
 
 a {
@@ -68,11 +68,13 @@ a:link {
 }
 
 #letters_container {
-    margin: 2em;
+    width: 90%;
+    margin: 3em auto;
+    padding-left: 3em;
 }
 
 .letterBtns {
-    width:9%;
+    width: 9%;
     margin: 0.3em;
 }
 
