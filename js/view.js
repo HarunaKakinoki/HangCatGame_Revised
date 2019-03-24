@@ -1,10 +1,12 @@
 const SCORE_TEXT = "Score : " + score;
 const TRIAL_TEXT = "Trial : " + trial;
-const RESET_BTN = "RESET";
+const RESTART_BTN = "RESTART";
 const SAVE_BTN = "SAVE";
 const APP_NAME = "HangCat Game";
 const SIGNUP_TEXT = "Sign up";
 const LOGIN_TEXT = "Log in";
+const RESTART_TITLE = "Restart";
+const RESTART_BODY = "Are you sure to restart game? Score will be 0."
 const RANKING_TEXT = "Ranking"
 const SUBMIT_BTN = "SUBMIT";
 const NAME_ALERT_TEXT = "Please enter valid user name.";
@@ -75,12 +77,14 @@ const hangCatImg = () => {
     $('#img_container').append($div);
 }
 
-const resetBtn = () => {
+const restartBtn = () => {
     const btn = $('<button/>')
     .attr({
         class : 'btn btn-danger buttons',
         id : 'restBtn',
-    }).text(RESET_BTN);
+        'data-toggle': 'modal',
+        'data-target': '#restart_modal' /*Trigger restart confirmation modal window*/
+    }).text(RESTART_BTN);
 
     $('#buttons_container').append(btn);
 }
@@ -184,7 +188,7 @@ const signUp = () => {
     //Create a framework of a modal window.
     modal(modalName);
 
-    const title = $('<div/>').attr('class', 'modalHeaders')
+    const title = $('<div/>').attr('class', 'modalTitles')
                     .text(SIGNUP_TEXT);
     
     //Name input field.
@@ -226,7 +230,7 @@ const logIn = () => {
     //Create a framework of a modal window.
     modal(modalName);
 
-    const title = $('<div/>').attr('class', 'modalHeaders')
+    const title = $('<div/>').attr('class', 'modalTitles')
                     .text(LOGIN_TEXT);
     
     //Email input field.
@@ -254,8 +258,34 @@ const logIn = () => {
     $('#' + modalName + '_footer').append(submit);
 }
 
-const openModal = (modal_id) => {
-    //$(modal_id).show();
+const restart = () => {
+    const modalName = 'restart';
+    
+    //Create a framwork of a modal window.
+    modal(modalName);
+
+    const title = $('<div/>').attr('class', 'modalTitles')
+    .text(RESTART_TITLE);
+    
+    const message = $('<div/>').attr('id', 'restartMessage' )
+                    .text(RESTART_BODY);
+    
+    const  yesBtn = $('<button/>').attr({
+        type: 'button',
+        class: 'btn btn-primary'
+    })
+    .text('YES');
+
+    const  noBtn = $('<button/>').attr({
+        type: 'button',
+        class: 'btn btn-danger',
+        'data-dismiss': 'modal'
+    })
+    .text('NO');
+
+    $('#' + modalName + '_title').append(title);
+    $('#' + modalName + '_content').append(message);
+    $('#' + modalName + '_footer').append(yesBtn, noBtn);
 }
 
 const View = {
@@ -263,12 +293,13 @@ const View = {
     createNavBar : navBar,
     createPlayData : playData,
     createHangImg : hangCatImg,
-    createResetBtn : resetBtn,
+    createRestartBtn : restartBtn,
     createHint : hint,
     createWord : word,
     createLetters : letters,
     createSaveBtn : saveBtn,
     createSignUpModal : signUp,
-    createLoginModal : logIn
+    createLoginModal : logIn,
+    createRestartModal : restart
 };
 
