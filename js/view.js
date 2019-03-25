@@ -345,6 +345,10 @@ const gameover = () => {
     $('#' + modalName + '_footer').append(restartBtn, closeBtn);
 }
 
+const showLetter = (index) => {
+    $('#answer' + index).css('visibility', 'visible');
+}
+
 const showAlert = (inputField_id) => {
     $('#' + inputField_id).show();
 }

@@ -67,12 +67,17 @@ function searchWord(selected_letter) { /*It should not bind "this", so not arrow
     for(let i = 0; i < lettersArray.length; ++i) {
         if(selected_letter === lettersArray[i].letter) {
             if(lettersArray[i].flag == false) {
-                return true;
+                return {
+                    result: true,
+                    index: i
+                };
             }
         }
     }
     return false;
 }
+
+
 
 const Model = {
     createDataObjArray: dataObjArray,

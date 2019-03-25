@@ -31,12 +31,16 @@ const setLetterBtnEvents = () => {
     //When each letter button is clicked.
     $('.letterBtns').click(function () {
         
-        //Get clicked, compare with the current word.
+        //Get clicked letter by user.
         const letter = $(this).attr('id');
-        
-        if(searchWord(letter) == true) {
-            
+        const search = searchWord(letter);
+        const result = search.result;
+        const index = search.index;
+
+        if(result == true) {       
+           
             Model.playSound('../sounds/correct.mp3');
+            showLetter(index);
         
         } else {
             
