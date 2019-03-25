@@ -15,7 +15,7 @@ const render_views = (current_hint, current_question) => {
 } 
 
 const game_start = () => {  
-    quizArray = Model.createDataObjArray(hints, answers, 4);
+    quizArray = Model.createDataObjArray(hints, answers, 5);
     const current = Model.generateRandomNumber(quizArray.length);
     const curHint = quizArray[current].hint;
     const curAnswer = quizArray[current].answer;

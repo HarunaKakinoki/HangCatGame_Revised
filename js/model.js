@@ -9,14 +9,16 @@ const hints = [
     "Language for iOS development", 
     "JS library, maintained by Facebook",
     "Free, Interpretred, released in 1991 ",
-    "Company provide AWS service"
+    "Company provide AWS service",
+    "Who created this game?(*'v'*)"
 ];
 
 const answers = [
     "Swift",
     "React",
     "Python",
-    "Amazon"
+    "Amazon",
+    "Haruna"
 ];
 
 const dataObjArray = (hints, answers, data_size) => {
@@ -65,13 +67,14 @@ const randomNumber = (data_size) => {
 
 function searchWord(selected_letter) { /*It should not bind "this", so not arrow function*/
     for(let i = 0; i < lettersArray.length; ++i) {
-        if(selected_letter === lettersArray[i].letter) {
+        if(selected_letter === lettersArray[i].letter.toLowerCase()) {
             if(lettersArray[i].flag == false) {
+                lettersArray[i].flag = true;
                 return {
                     result: true,
                     index: i
                 };
-            }
+            } 
         }
     }
     return false;
