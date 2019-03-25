@@ -6,9 +6,9 @@ const APP_NAME = "HangCat Game";
 const SIGNUP_TEXT = "Sign up";
 const LOGIN_TEXT = "Log in";
 const RESTART_TITLE = "Restart";
-const RESTART_BODY = "Are you sure to restart game? Score will be 0."
+const RESTART_BODY = "Are you sure to restart game? <br>Score will be 0."
 const GAME_OVER_TITLE = "GAME OVER";
-const GAME_OVER_BODY = "You have already made mistakes 7 times...";
+const GAME_OVER_BODY = "You have already made mistakes<br> 7 times...";
 const RANKING_TEXT = "Ranking"
 const SUBMIT_BTN = "SUBMIT";
 const CLOSE_BTN = "CLOSE";
@@ -171,7 +171,7 @@ const modal = (modal_name) => {
     
     //Modal content.
     const content = $('<div/>').attr({
-        class: 'modal-body',
+        class: 'modal-body modalContents',
         id : modal_name + '_content' /* Eg: signup_content */
     });
 
@@ -183,7 +183,7 @@ const modal = (modal_name) => {
    
     
    $($div).append(header, content, footer);
-   $(header).append(closeBtnTop, title);
+   $(header).append(title, closeBtnTop);
    $('#' + modal_name + '_body').append($div);
 }
 
@@ -221,7 +221,7 @@ const signUp = () => {
     const passwordAlert = $('<p/>').attr('class', 'inputAlerts')
                         .text(PASSWORD_ALERT_TEXT);
 
-    const submit = $('<button/>').attr('class', 'btn btn-primary')
+    const submit = $('<button/>').attr('class', 'btn btn-primary modalBtns')
                     .text(SUBMIT_BTN);
 
     $('#' + modalName + '_title').append(title);
@@ -255,7 +255,7 @@ const logIn = () => {
     const passwordAlert = $('<p/>').attr('class', 'inputAlerts')
                         .text(PASSWORD_ALERT_TEXT);
 
-    const submit = $('<button/>').attr('class', 'btn btn-primary')
+    const submit = $('<button/>').attr('class', 'btn btn-primary modalBtns')
                     .text(SUBMIT_BTN);
 
     $('#' + modalName + '_title').append(title);
@@ -273,23 +273,29 @@ const restart = () => {
     .text(RESTART_TITLE);
     
     const message = $('<div/>').attr('id', 'restartMessage' )
-                    .text(RESTART_BODY);
+                    .html(RESTART_BODY);
     
+    const $img = $('<img/>').attr({
+        src: 'images/worryCat.png',
+        id: 'worryCatImg',
+        alt: 'cat-worry-restarting-image'
+    });
+
     const  yesBtn = $('<button/>').attr({
         type: 'button',
-        class: 'btn btn-primary'
+        class: 'btn btn-primary modalBtns'
     })
     .text('YES');
 
     const  noBtn = $('<button/>').attr({
         type: 'button',
-        class: 'btn btn-danger',
+        class: 'btn btn-danger modalBtns',
         'data-dismiss': 'modal'
     })
     .text('NO');
 
     $('#' + modalName + '_title').append(title);
-    $('#' + modalName + '_content').append(message);
+    $('#' + modalName + '_content').append(message, $img);
     $('#' + modalName + '_footer').append(yesBtn, noBtn);
 }
 
@@ -303,7 +309,7 @@ const gameover = () => {
     .text(GAME_OVER_TITLE);
     
     const message = $('<div/>').attr('id', 'restartMessage' )
-                    .text(GAME_OVER_BODY);
+                    .html(GAME_OVER_BODY);
     const $img = $('<img/>').attr({
         src: 'images/angelCat.png',
         id: 'gameOverImg',
@@ -312,13 +318,13 @@ const gameover = () => {
     
     const  restartBtn = $('<button/>').attr({
         type: 'button',
-        class: 'btn btn-primary'
+        class: 'btn btn-primary modalBtns'
     })
     .text(RESTART_BTN);
 
     const  closeBtn = $('<button/>').attr({
         type: 'button',
-        class: 'btn btn-danger',
+        class: 'btn btn-danger modalBtns',
         'data-dismiss': 'modal'
     })
     .text(CLOSE_BTN);
