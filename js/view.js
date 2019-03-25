@@ -202,24 +202,35 @@ const signUp = () => {
         class : 'modalInputs',
         placeholder : 'User name'
     });
-    const nameAlert = $('<p/>').attr('class', 'inputAlerts')
-                        .text(NAME_ALERT_TEXT);
+    const nameAlert = $('<p/>').attr({
+        class: 'inputAlerts',
+        id: 'nameAlert'
+    })
+    .text(NAME_ALERT_TEXT);
+    
     //Email input field.
     const email = $('<input/>').attr({
         type : 'text',
         class : 'modalInputs',
         placeholder : 'E-mail address'
     });
-    const emailAlert = $('<p/>').attr('class', 'inputAlerts')
-                        .text(EMAIL_ALERT_TEXT);
+    const emailAlert = $('<p/>').attr({
+        class: 'inputAlerts',
+        id: 'emailAlert'
+    })
+    .text(EMAIL_ALERT_TEXT);
+    
     //Password input field.
     const password = $('<input/>').attr({
         type : 'text',
         class : 'modalInputs',
         placeholder : 'Password'
     });
-    const passwordAlert = $('<p/>').attr('class', 'inputAlerts')
-                        .text(PASSWORD_ALERT_TEXT);
+    const passwordAlert = $('<p/>').attr({
+        class: 'inputAlerts',
+        id: 'passwordAlert'
+    })
+    .text(PASSWORD_ALERT_TEXT);
 
     const submit = $('<button/>').attr('class', 'btn btn-primary modalBtns')
                     .text(SUBMIT_BTN);
@@ -333,6 +344,11 @@ const gameover = () => {
     $('#' + modalName + '_content').append(message, $img);
     $('#' + modalName + '_footer').append(restartBtn, closeBtn);
 }
+
+const showAlert = (inputField_id) => {
+    $('#' + inputField_id).show();
+}
+
 
 const View = {
     showAppName : appName,

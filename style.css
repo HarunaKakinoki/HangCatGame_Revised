@@ -54,7 +54,7 @@ p { margin: 0;}
 #hint {
     width: 80%;
     margin: auto;
-    font-size: 2em;
+    font-size: 1.5em;
 }
 
 .answerLetterContainers {
@@ -68,7 +68,7 @@ p { margin: 0;}
 
 #letters_container {
     width: 90%;
-    margin: 3em auto;
+    margin: 2em auto;
     padding-left: 3em;
 }
 
