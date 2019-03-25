@@ -277,7 +277,7 @@ const restart = () => {
     
     const $img = $('<img/>').attr({
         src: 'images/worryCat.png',
-        id: 'worryCatImg',
+        id: 'restartImg',
         alt: 'cat-worry-restarting-image'
     });
 
