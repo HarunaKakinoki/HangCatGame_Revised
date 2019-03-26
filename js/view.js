@@ -86,7 +86,7 @@ const restartBtn = () => {
     const btn = $('<button/>')
     .attr({
         class : 'btn btn-danger buttons',
-        id : 'restBtn',
+        id : 'restartBtn',
         'data-toggle': 'modal',
         'data-target': '#restart_modal' /*Trigger restart confirmation modal window*/
     }).text(RESTART_BTN);
@@ -294,6 +294,7 @@ const restart = () => {
 
     const  yesBtn = $('<button/>').attr({
         type: 'button',
+        id: 'yes',
         class: 'btn btn-primary modalBtns'
     })
     .text('YES');
@@ -329,30 +330,48 @@ const gameover = () => {
     
     const  restartBtn = $('<button/>').attr({
         type: 'button',
+        id: 'gameoverRestartBtn',
         class: 'btn btn-primary modalBtns'
     })
     .text(RESTART_BTN);
 
-    const  closeBtn = $('<button/>').attr({
-        type: 'button',
-        class: 'btn btn-danger modalBtns',
-        'data-dismiss': 'modal'
-    })
-    .text(CLOSE_BTN);
-
     $('#' + modalName + '_title').append(title);
     $('#' + modalName + '_content').append(message, $img);
-    $('#' + modalName + '_footer').append(restartBtn, closeBtn);
+    $('#' + modalName + '_footer').append(restartBtn);
 }
 
 const showLetter = (index) => {
     $('#answer' + index).css('visibility', 'visible');
 }
 
+const changeHangCatImg = () => {
+    if(mistake > 6) {
+        $('#hangCatImg').fadeOut(1000);
+        $('#gameover_modal').modal('show');
+    }
+    $('#hangCatImg').attr('src', '../images/hangCat/hanged' + mistake + '.png');
+}
+
+const updateScore = () => {
+    $('#score').text('Score: ' + score);
+}
+
+const updateTrial = () => {
+    $('#trial').text('Trial: ' + trial);
+}
+
 const showAlert = (inputField_id) => {
     $('#' + inputField_id).show();
 }
 
+const removePreviousHintAndWord = () => {
+    $('#hint').remove();
+    $('#curWordField').remove();
+}
+
+const hideModal = (modal_id) => {
+    $(modal_id).modal('hide');
+}
 
 const View = {
     showAppName : appName,
@@ -367,6 +386,10 @@ const View = {
     createSignUpModal : signUp,
     createLoginModal : logIn,
     createRestartModal : restart,
-    createGameOverModal : gameover
+    createGameOverModal : gameover,
+    showLetter: showLetter,
+    showAlert: showAlert,
+    changeHangCatImg: changeHangCatImg,
+    updateScore: updateScore
 };
 

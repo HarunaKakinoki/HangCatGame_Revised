@@ -1,4 +1,5 @@
 let score = 0;
+let mistake = 0;
 let trial = 0;
 let quizArray;
 let currentHint;
@@ -80,11 +81,31 @@ function searchWord(selected_letter) { /*It should not bind "this", so not arrow
     return false;
 }
 
+const addScore = () => {
+    score++;
+}
 
+const countTrial = () => {
+    trial++;
+}
+
+const countMistake = () => {
+    mistake++;
+}
+
+const resetData= () => {
+    score = 0;
+    trial = 0;
+    mistake = 0;
+}
 
 const Model = {
     createDataObjArray: dataObjArray,
-    playSound: sound,
     generateRandomNumber: randomNumber,
-    splitWordIntoLetters: splitWordIntoLetters
+    splitWordIntoLetters: splitWordIntoLetters,
+    playSound: sound,
+    searchWord: searchWord,
+    addScore: addScore,
+    countTrial: countTrial,
+    countMistake: countMistake
 };
