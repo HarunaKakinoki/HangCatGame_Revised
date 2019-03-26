@@ -66,10 +66,15 @@ const randomNumber = (data_size) => {
     return randomNum;
 }
 
+//When user tap a letter button, search the letter from the current word.
 function searchWord(selected_letter) { /*It should not bind "this", so not arrow function*/
-    let flag = false;
+    let flag = false; /*Indicates already found letter or not*/
+    
     for(let i = 0; i < lettersArray.length; ++i) {
+        
+        //When the letter is found in the current word.
         if(selected_letter === lettersArray[i].letter.toLowerCase()) {
+            
             if(lettersArray[i].flag === false) {
                 lettersArray[i].flag = true;
                 return {
@@ -77,6 +82,7 @@ function searchWord(selected_letter) { /*It should not bind "this", so not arrow
                     repeat: false,
                     index: i
                 };
+            
             } else {
                 
                 flag = true;
@@ -85,6 +91,7 @@ function searchWord(selected_letter) { /*It should not bind "this", so not arrow
         }
     }
 
+    //When user tap a found letter again.
     if(flag === true) {
         return {
             result: true,
@@ -92,9 +99,20 @@ function searchWord(selected_letter) { /*It should not bind "this", so not arrow
             index: i
         };
     }
-    
+
     return false;
 }
+
+//Check whether the trial is end or not.
+const isTrialEnd = () => {
+    for(let i = 0; i < lettersArray.length; ++i) {
+        if(lettersArray[i].flag === false) {
+            return false;
+        }
+    }
+    return true;
+}
+
 
 const addScore = () => {
     score++;

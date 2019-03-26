@@ -14,25 +14,34 @@ const setBtnEvents = () => {
         const index = search.index;
         const repeat = search.repeat;
 
-        //When letter is found.
+        //When a correct letter is tapped.
         if(result === true) {       
             
-            //
+            //Found the letter first time.
             if(repeat === false) {
                 Model.playSound('../sounds/correct.mp3');
                 View.showLetter(index);
                 Model.addScore();
                 View.updateScore();
+                if(isTrialEnd()) {
+                    setTimeout(function() {
+                        createNextTrial();
+                    }, 500);
+                }
+            
             } else {
+                
                 Model.playSound('../sounds/correct.mp3');
+            
             }
            
-        
+        //When a wrong letter is tapped.
         } else {
             
             Model.playSound('../sounds/wrong.mp3');
             Model.countMistake();
             View.changeHangCatImg();
+        
         }
     });
 
