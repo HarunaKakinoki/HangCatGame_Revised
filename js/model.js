@@ -67,17 +67,32 @@ const randomNumber = (data_size) => {
 }
 
 function searchWord(selected_letter) { /*It should not bind "this", so not arrow function*/
+    let flag = false;
     for(let i = 0; i < lettersArray.length; ++i) {
         if(selected_letter === lettersArray[i].letter.toLowerCase()) {
-            if(lettersArray[i].flag == false) {
+            if(lettersArray[i].flag === false) {
                 lettersArray[i].flag = true;
                 return {
                     result: true,
+                    repeat: false,
                     index: i
                 };
-            } 
+            } else {
+                
+                flag = true;
+            
+            }
         }
     }
+
+    if(flag === true) {
+        return {
+            result: true,
+            repeat: true,
+            index: i
+        };
+    }
+    
     return false;
 }
 

@@ -47,9 +47,7 @@ const navBar = () => {
     const ranking = $('<a/>')
     .attr({
         class : 'navLinks',
-        href : '#',
-        'data-toggle': 'modal',
-        'data-target': '#gameover_modal' /*Trigger login modal window*/
+        href : 'rank.html'
     })
     .text('Ranking');
 
@@ -364,7 +362,7 @@ const showAlert = (inputField_id) => {
     $('#' + inputField_id).show();
 }
 
-const removePreviousHintAndWord = () => {
+const removePreviousTrial = () => {
     $('#hint').remove();
     $('#curWordField').remove();
 }
@@ -372,6 +370,23 @@ const removePreviousHintAndWord = () => {
 const hideModal = (modal_id) => {
     $(modal_id).modal('hide');
 }
+
+//When page is loaded, rengder all components in the page.
+const renderViews = (current_hint, current_question) => {
+    View.showAppName();
+    View.createNavBar();
+    View.createPlayData();
+    View.createHangImg();
+    View.createRestartBtn();
+    View.createHint(current_hint);
+    View.createWord(current_question);
+    View.createLetters();
+    View.createSaveBtn();
+    View.createSignUpModal();
+    View.createLoginModal();
+    View.createRestartModal();
+    View.createGameOverModal();
+} 
 
 const View = {
     showAppName : appName,

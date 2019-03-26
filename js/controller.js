@@ -1,35 +1,10 @@
 const NEXT_TRIAL_AUDIO_FILE = '../sounds/moveToNext.mp3';
 
-const render_views = (current_hint, current_question) => {
-    View.showAppName();
-    View.createNavBar();
-    View.createPlayData();
-    View.createHangImg();
-    View.createRestartBtn();
-    View.createHint(current_hint);
-    View.createWord(current_question);
-    View.createLetters();
-    View.createSaveBtn();
-    View.createSignUpModal();
-    View.createLoginModal();
-    View.createRestartModal();
-    View.createGameOverModal();
-} 
+//Set all onclick events for each button.
+const setBtnEvents = () => {
+   
 
-const game_start = () => {  
-    quizArray = Model.createDataObjArray(hints, answers, 5);
-    const current = Model.generateRandomNumber(quizArray.length);
-    const curHint = quizArray[current].hint;
-    const curAnswer = quizArray[current].answer;
-    
-    render_views(curHint, curAnswer);
-    lettersArray = splitWordIntoLetters(curAnswer);
-    setLetterBtnEvents();
-    
-}
-
-const setLetterBtnEvents = () => {
-    //When each letter button is clicked.
+    //Letter buttons.
     $('.letterBtns').click(function () {
         
         //Get clicked letter by user.
@@ -37,13 +12,21 @@ const setLetterBtnEvents = () => {
         const search = searchWord(letter);
         const result = search.result;
         const index = search.index;
+        const repeat = search.repeat;
 
+        //When letter is found.
         if(result === true) {       
+            
+            //
+            if(repeat === false) {
+                Model.playSound('../sounds/correct.mp3');
+                View.showLetter(index);
+                Model.addScore();
+                View.updateScore();
+            } else {
+                Model.playSound('../sounds/correct.mp3');
+            }
            
-            Model.playSound('../sounds/correct.mp3');
-            View.showLetter(index);
-            Model.addScore();
-            View.updateScore();
         
         } else {
             
@@ -53,35 +36,62 @@ const setLetterBtnEvents = () => {
         }
     });
 
+    //Yes Button on the restart modal.
     $('#yes').click(function() {
         restartGame();
         hideModal('#restart_modal');
     });
 
+    //Restart 
     $('#gameoverRestartBtn').click(function() {
         restartGame();
         hideModal('#gameover_modal');
     });
 }
 
-const restartGame = () => {
-    resetData();
-    updateScore();
-    updateTrial();
-    changeHangCatImg();
-    startNextTrial();
+//Start Game.
+const gameStart = () => {  
+    quizArray = Model.createDataObjArray(hints, answers, 5);
+    const current = Model.generateRandomNumber(quizArray.length);
+    const curHint = quizArray[current].hint;
+    const curAnswer = quizArray[current].answer;
+    
+    renderViews(curHint, curAnswer);
+    lettersArray = splitWordIntoLetters(curAnswer);
+    setBtnEvents();
+    
 }
 
-const startNextTrial= () => {
+//Restart Game.
+const restartGame = () => {
+    
+    //Initialize score, trial, hangcat image.
+    resetData();
+    changeHangCatImg();
+
+    //Update score & trial View.
+    updateScore();
+    updateTrial();
+    
+    //Create new hint & word.
+    createNextTrial();
+}
+
+//Create new hint & word for next trial.
+const createNextTrial = () => {
     const current = Model.generateRandomNumber(quizArray.length);
     const curHint = quizArray[current].hint;
     const curAnswer = quizArray[current].answer;
 
+    //Make a sound.
     Model.playSound(NEXT_TRIAL_AUDIO_FILE);
-    countTrial();
     
-    //Remove Previously 
-    removePreviousHintAndWord();
+    //Increment the number of trial & update trial view.
+    countTrial();
+    updateScore();
+    
+    //Remove hint & word form the last trial.
+    removePreviousTrial();
     
     //Create a new hint & word.
     View.createHint(curHint);
@@ -91,8 +101,7 @@ const startNextTrial= () => {
     lettersArray = splitWordIntoLetters(curAnswer);
 }
 
+gameStart();
 
-game_start();
-restartGame();
 
 
