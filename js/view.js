@@ -344,7 +344,11 @@ const showLetter = (index) => {
 
 const changeHangCatImg = () => {
     if(mistake > 6) {
-        $('#hangCatImg').fadeOut(1000);
+        $('#hangCatImg').css({
+            'visibility': 'hidden',
+            'opacity': 0,
+            'transition': 'visibility 0s 1s, opacity 1s linear'
+        });
         $('#gameover_modal').modal('show');
     }
     $('#hangCatImg').attr('src', '../images/hangCat/hanged' + mistake + '.png');
@@ -369,6 +373,14 @@ const removePreviousTrial = () => {
 
 const hideModal = (modal_id) => {
     $(modal_id).modal('hide');
+}
+
+const changeHangCatImgSetting = () => {
+    $('#hangCatImg').css({
+        'visibility': 'visible',
+        'opacity': 1,
+        'transition': 'visibility 0s, opacity 0s linear'
+    });
 }
 
 //When page is loaded, rengder all components in the page.

@@ -1,6 +1,6 @@
 let score = 0;
 let mistake = 0;
-let trial = 0;
+let trial = 1;
 let quizArray;
 let currentHint;
 let currentAnswer;

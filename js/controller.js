@@ -77,6 +77,7 @@ const restartGame = () => {
     //Initialize score, trial, hangcat image.
     resetData();
     changeHangCatImg();
+    changeHangCatImgSetting(); /*Make it visible*/
 
     //Update score & trial View.
     updateScore();
@@ -97,7 +98,7 @@ const createNextTrial = () => {
     
     //Increment the number of trial & update trial view.
     countTrial();
-    updateScore();
+    updateTrial();
     
     //Remove hint & word form the last trial.
     removePreviousTrial();
