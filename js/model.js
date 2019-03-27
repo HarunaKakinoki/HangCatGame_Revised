@@ -5,6 +5,7 @@ let quizArray;
 let currentHint;
 let currentAnswer;
 let lettersArray; /*current word split into a letter*/
+let gameOverFlag = false;
 
 const hints = [
     "Language for iOS development", 
@@ -13,7 +14,6 @@ const hints = [
     "Company provide AWS service",
     "Who created this game?(*'v'*)"
 ];
-
 const answers = [
     "Swift",
     "React",
@@ -126,10 +126,143 @@ const countMistake = () => {
     mistake++;
 }
 
-const resetData= () => {
+const resetData = () => {
     score = 0;
     trial = 0;
     mistake = 0;
+    gameOverFlag = false;
+}
+
+const isGameOver = () => {
+    
+    if(mistake > 6) {
+        return true;
+    } 
+
+    return false;
+}
+
+const setGameOverFlag = () => {
+    gameOverFlag = true;
+}
+
+const getUserInputs = (input_className) => {
+    let userInputArray = [];
+    
+    $(input_className).each(function() {
+       userInputArray.push($(this).val());
+    });
+    
+    return userInputArray;
+
+}
+
+const validateUserInput = (userInputs) => {
+    let alertArray = [];
+    const emailRegex = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+    const passwordRegex = new RegExp(/^(?=.{6,})/);
+
+    //For Sign up.
+    if(userInputs.length === 3) {
+        const name = userInputs[0];
+        const email = userInputs[1];
+        const password = userInputs[2];
+
+        //When Name is Null.
+        if(name === "") {
+            alertArray.push('#nameAlert');
+        }
+
+        if(email === "" || !emailRegex.test(email)) {
+            alertArray.push('#emailAlert');
+        }
+
+        if(password === "" || !passwordRegex.test(password)) {
+            alertArray.push('#passwordAlert');
+        }
+
+    } else {
+        const email = userInputs[0];
+        const password = userInputs[1];
+
+        if(email === "" || !emailRegex.test(email)) {
+            alertArray.push('#loginEmailAlert');
+        }
+
+        if(password === "" || !passwordRegex.test(password)) {
+            alertArray.push('#loginPasswordAlert');
+        }
+    }
+
+    return alertArray;
+
+}
+
+const createUserAccount = (userInputs) => {
+    const name = userInputs[0];
+    const email = userInputs[1];
+    const password = userInputs[2];
+    let errorCode;
+    let errorMessage;
+
+    //Create user with email & password on Firebase.
+    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
+        //Error Handling.
+        errorCode = error.code;
+        errorMessage = error.message;
+        alert(errorMessage)
+        return false;
+    });
+
+    //Log in automatically after the registration.
+    firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
+        //Error Handling.
+        errorCode = error.code;
+        errorMessage = error.message;
+    });
+
+    //Add user name to the account.
+    firebase.auth().onAuthStateChanged(function (user) {
+        
+        if (user) {
+            
+            user.updateProfile({
+                
+                displayName: name.toString()
+            
+            }).then(function () {
+
+              return true;
+            
+            });
+        }
+    });
+}
+
+const loginToAccount = (userInputs) => {
+    const email = userInputs[0];
+    const password = userInputs[1];
+    let errorCode;
+    let errorMessage;
+
+    //Log in.
+    firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
+        //Error Handling.
+        //errorCode = error.code;
+        //errorMessage = error.message;
+        return false;
+    });
+
+    firebase.auth().onAuthStateChanged(function (user) {
+
+        //If login successful.
+        if (user) {
+            return true;
+            document.getElementById('saveBtn').onclick = function (event) {
+                saveScore(totalScore);
+            };
+        }
+    });
 }
 
 const Model = {

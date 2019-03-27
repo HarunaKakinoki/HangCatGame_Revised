@@ -103,7 +103,7 @@ p { margin: 0;}
     visibility: hidden;
 }
 
-.modalInputs {
+.signUpInputs, .loginInputs {
     width: 70%;
     margin-bottom: 0.5em;
 }
