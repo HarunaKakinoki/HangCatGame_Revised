@@ -181,18 +181,39 @@ const processSignUp = () => {
        
     } else {
         
-        //When account creation was not sucessful.
-        if(createUserAccount(userInputs) === false) {
-            
+        //Try to create account.
+        const result = createUserAccount(userInputs);
+        result.then(function (value) {
+    
+        //When account creation failed.
+        if(value != true) {
+        
+            //alert(result)
+            changeAlertMessage('#emailAlert', value); /* Error message will be returned*/
             changeViewOfButton('#signUpSubmitBtn', SUBMIT_ERROR_TEXT);
         
         } else {
+                
+            addNameToAccount(userInputs).then(function(result){
+                alert(result)
+                if(result === true) {
+                    alert("YEEEEE")
+                    hideModal('#signup_modal');
+                    location.reload();
+                } else {
+                    alert("NOOo")
+                }
+            })
+                
+        }   
+          
+        }).catch(function (error) {
             
-            hideModal('#signup_modal');
-            location.reload();
-        
-        }
+            console.log(error);
+          
+          });
 
+     
     } 
     
 }

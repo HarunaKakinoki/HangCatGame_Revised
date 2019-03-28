@@ -343,12 +343,6 @@ const showLetter = (index) => {
 }
 
 const changeHangCatImg = () => {
-    
-    if(mistake > 6) {
-        
-
-        
-    }
     $('#hangCatImg').attr('src', '../images/hangCat/hanged' + mistake + '.png');
 }
 
@@ -378,6 +372,11 @@ const updateTrial = () => {
 
 const showAlert = (inputField_id) => {
     $(inputField_id).css('visibility', 'visible');
+}
+
+const changeAlertMessage = (div_id, message) => {
+    $(div_id).text(message)
+             .css('visibility', 'visible');
 }
 
 const removePreviousTrial = () => {

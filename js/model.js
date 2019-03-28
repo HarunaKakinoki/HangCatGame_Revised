@@ -199,51 +199,56 @@ const validateUserInput = (userInputs) => {
 }
 
 const createUserAccount = (userInputs) => {
-    const name = userInputs[0];
     const email = userInputs[1];
     const password = userInputs[2];
-    let errorCode;
-    let errorMessage;
+    let result = true;
 
     //Create user with email & password on Firebase.
     firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
         //Error Handling.
-        errorCode = error.code;
-        errorMessage = error.message;
-        alert(errorMessage)
-        return false;
+        result = error.message;
     });
 
-    //Log in automatically after the registration.
-    firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
-        //Error Handling.
-        errorCode = error.code;
-        errorMessage = error.message;
+    const returnVal = new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            //result = true when sucess. When fail, result will be an error message.
+            resolve(result); 
+        }, 500);
     });
 
-    //Add user name to the account.
-    firebase.auth().onAuthStateChanged(function (user) {
+    return returnVal;
+}
+
+const addNameToAccount = (userInputs) => {
+    const name = userInputs[0];
+    const email = userInputs[1];
+    const password = userInputs[2];
+
+    //Log in into the account.
+    firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(function() {
         
-        if (user) {
-            
-            user.updateProfile({
-                
-                displayName: name.toString()
-            
-            }).then(function () {
+        //Add user name to the account.
+        firebase.auth().onAuthStateChanged(function (user) { 
 
-              return true;
-            
-            });
-        }
+            if (user) {
+                user.updateProfile({
+                    
+                    displayName: name.toString()
+                
+                })
+            } 
+        });
+
+    }).catch(function (error) {
+        //Error Handling.
+        console.log(error.message);
     });
 }
 
 const loginToAccount = (userInputs) => {
     const email = userInputs[0];
     const password = userInputs[1];
-    let errorCode;
-    let errorMessage;
 
     //Log in.
     firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
@@ -257,10 +262,8 @@ const loginToAccount = (userInputs) => {
 
         //If login successful.
         if (user) {
+
             return true;
-            document.getElementById('saveBtn').onclick = function (event) {
-                saveScore(totalScore);
-            };
         }
     });
 }
