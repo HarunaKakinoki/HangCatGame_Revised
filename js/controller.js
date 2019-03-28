@@ -14,6 +14,10 @@ const setBtnEvents = () => {
         processSignUp();
     });
 
+    $('#loginSubmitBtn').click(function() {
+        processLogin();
+    });
+
     //Yes Button on the restart modal.
     $('#yes').click(function() {
 
@@ -165,6 +169,7 @@ const createNextTrial = () => {
     lettersArray = splitWordIntoLetters(curAnswer);
 }
 
+//Sign up.
 const processSignUp = () => {
     const userInputs = getUserInputs('.signUpInputs');
     const validateResult = validateUserInput(userInputs);
@@ -188,34 +193,58 @@ const processSignUp = () => {
         //When account creation failed.
         if(value != true) {
         
-            //alert(result)
             changeAlertMessage('#emailAlert', value); /* Error message will be returned*/
             changeViewOfButton('#signUpSubmitBtn', SUBMIT_ERROR_TEXT);
         
         } else {
-                
-            addNameToAccount(userInputs).then(function(result){
-                alert(result)
-                if(result === true) {
-                    alert("YEEEEE")
-                    hideModal('#signup_modal');
-                    location.reload();
-                } else {
-                    alert("NOOo")
-                }
-            })
-                
+            
+            //Add user name to the account.
+            addNameToAccount(userInputs);
+            hideModal('#signup_modal');
+            location.reload();
         }   
           
         }).catch(function (error) {
             
             console.log(error);
           
-          });
-
-     
+        });
     } 
-    
+}
+
+//Log in.
+const processLogin = () => {
+    const userInputs = getUserInputs('.loginInputs');
+    const validateResult = validateUserInput(userInputs);
+    console.log(userInputs)
+     //When user inputs has some errors.
+     if(validateResult.length != 0) {
+        
+        for(let i = 0; i < validateResult.length; ++i) {
+            
+            const alertId = validateResult[i];
+            showAlert(alertId);
+        
+        }
+       
+    } else {
+        
+        //Try login.
+        loginToAccount(userInputs).then(function (result) {
+            //Login success.
+            if(result === true) {
+                
+                hideModal('#login_modal');
+            
+            //Login failed.
+            } else {
+                
+                changeAlertMessage('#loginPasswordAlert', result); 
+                changeViewOfButton('#loginSubmitBtn', SUBMIT_ERROR_TEXT);
+            
+            }
+        })
+    }
 }
 
 gameStart();

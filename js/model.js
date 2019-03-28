@@ -249,23 +249,31 @@ const addNameToAccount = (userInputs) => {
 const loginToAccount = (userInputs) => {
     const email = userInputs[0];
     const password = userInputs[1];
+    let result = false;
 
     //Log in.
     firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
-        //Error Handling.
-        //errorCode = error.code;
-        //errorMessage = error.message;
-        return false;
+        result = error.message;
     });
 
     firebase.auth().onAuthStateChanged(function (user) {
 
         //If login successful.
         if (user) {
-
-            return true;
+            result = true;
         }
     });
+    
+    const returnVal = new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            //result = true when sucess. When fail, result will be an error message.
+            resolve(result); 
+            console.log(result)
+        }, 500);
+    });
+
+    return returnVal;
+
 }
 
 const Model = {
