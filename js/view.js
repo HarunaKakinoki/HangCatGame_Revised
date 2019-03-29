@@ -251,7 +251,7 @@ const createSignUpModal = () => {
     .text(PASSWORD_ALERT_TEXT);
 
     const submit =  $('<button/>').attr({
-        class: 'btn btn-primary modalBtns',
+        class: 'btn btn-primary modalBtns authButtons',
         id: 'signUpSubmitBtn'
     })
     .text(SUBMIT_BTN);
@@ -296,7 +296,7 @@ const createLoginModal = () => {
     .text(PASSWORD_ALERT_TEXT);
 
     const submit = $('<button/>').attr({
-        class: 'btn btn-primary modalBtns',
+        class: 'btn btn-primary modalBtns authButtons',
         id: 'loginSubmitBtn'
     })
     .text(SUBMIT_BTN);
@@ -451,10 +451,16 @@ const changeViewOfButton = (button_id, text) => {
 
 //Clear all inputs & alerts displayed on a modal.
 const clearModal = (input_className) => {
+    //Clear all input values.
     $(input_className).each(function() {
       $(this).val('');
     });
+
+    //Hide alerts.
     hideAlerts('.inputAlerts');
+
+    //Change the text of submit button.
+    $('.authButtons').text(SUBMIT_BTN);
 }
 
 //Dispaly user navbar & hide default navbar.
