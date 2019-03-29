@@ -1,4 +1,3 @@
-
 //Set all onclick events for each button.
 const setBtnEvents = () => {
    
@@ -28,8 +27,8 @@ const setBtnEvents = () => {
         processLogin();
     });
 
-    $('#logOut').click(function() {
-        processLogOut();
+    $('#logoutLink').click(function() {
+        processLogout();
     });
 
     //Yes Button on the restart modal.
@@ -100,6 +99,7 @@ const processLetterBtnEvent = (letter) => {
 
         playSound(WRONG_AUDIO_FILE);
         countMistake();
+        
         if(isGameOver()) {
            gameOver();
         }
@@ -132,9 +132,18 @@ const gameStart = () => {
     const curAnswer = quizArray[current].answer;
     
     renderViews(curHint, curAnswer);
+    firebase.auth().onAuthStateChanged(function(user) {
+       
+        if (user) {
+
+            displayUserNameOnNavBar(user.displayName);
+            displayUserNavBar();
+       
+        }
+    });
+
     lettersArray = splitWordIntoLetters(curAnswer);
-    setBtnEvents();
-    
+    setBtnEvents(); 
 }
 
 //Restart Game.
@@ -281,8 +290,9 @@ const processLogin = () => {
     }
 }
 
-const processLogOut = () => {
-    logOut();
+//Log out.
+const processLogout = () => {
+    logout();
     displayNavBar();
 }
 

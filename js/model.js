@@ -274,7 +274,7 @@ const loginToAccount = (userInputs) => {
 
 }
 
-const logOut = () => {
+const logout = () => {
     firebase.auth().signOut().then(function () {
         firebase.database().goOffline();
         console.log("Logged out.");
