@@ -22,7 +22,7 @@ const answers = [
     "Haruna"
 ];
 
-const dataObjArray = (hints, answers, data_size) => {
+const createDataObjArray = (hints, answers, data_size) => {
     let data_array = [];
 
     for(let i = 0; i < data_size; ++i) {
@@ -55,12 +55,12 @@ const splitWordIntoLetters = (current_answer) => {
 
 }
 
-const sound = (audio_file) => {
+const playSound = (audio_file) => {
     const sound = new Audio(audio_file);
     sound.play();
 }
 
-const randomNumber = (data_size) => {
+const generateRandomNumber = (data_size) => {
     //Return 0 to n(data_size) randomly.
     const randomNum = Math.floor((Math.random() * data_size) + 0);
     return randomNum;
@@ -204,7 +204,8 @@ const createUserAccount = (userInputs) => {
     let result = true;
 
     //Create user with email & password on Firebase.
-    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+    .catch(function (error) {
         //Error Handling.
         result = error.message;
     });
@@ -213,7 +214,7 @@ const createUserAccount = (userInputs) => {
         setTimeout(function () {
             //result = true when sucess. When fail, result will be an error message.
             resolve(result); 
-        }, 500);
+        }, 1000);
     });
 
     return returnVal;
@@ -223,27 +224,22 @@ const addNameToAccount = (userInputs) => {
     const name = userInputs[0];
     const email = userInputs[1];
     const password = userInputs[2];
-
+    
     //Log in into the account.
     firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(function() {
-        
-        //Add user name to the account.
-        firebase.auth().onAuthStateChanged(function (user) { 
-
-            if (user) {
-                user.updateProfile({
-                    
-                    displayName: name.toString()
-                
-                })
-            } 
-        });
-
-    }).catch(function (error) {
+    .catch(function (error) {
         //Error Handling.
         console.log(error.message);
     });
+    
+    //Add user name.
+    const user = firebase.auth().currentUser;
+    user.updateProfile({
+        displayName: name
+    }).then(function () {
+      console.log(user.displayName);  
+    });
+   
 }
 
 const loginToAccount = (userInputs) => {
@@ -268,7 +264,6 @@ const loginToAccount = (userInputs) => {
         setTimeout(function () {
             //result = true when sucess. When fail, result will be an error message.
             resolve(result); 
-            console.log(result)
         }, 500);
     });
 
@@ -276,13 +271,12 @@ const loginToAccount = (userInputs) => {
 
 }
 
-const Model = {
-    createDataObjArray: dataObjArray,
-    generateRandomNumber: randomNumber,
-    splitWordIntoLetters: splitWordIntoLetters,
-    playSound: sound,
-    searchWord: searchWord,
-    addScore: addScore,
-    countTrial: countTrial,
-    countMistake: countMistake
-};
+const logOut = () => {
+    firebase.auth().signOut().then(function () {
+        firebase.database().goOffline();
+        console.log("Logged out.");
+    }).catch(function (error) {
+        console.log(error.message);
+    });
+}
+

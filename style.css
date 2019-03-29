@@ -18,7 +18,7 @@ p { margin: 0;}
     font-size: 3em;
 }
 
-#navbar {
+#navbar, #userNavbar {
     text-align: right;
     padding-top: 0.8em;
 }
@@ -26,6 +26,10 @@ p { margin: 0;}
 .navLinks {
     font-size: 2em;
     margin: 0.5em;
+}
+
+#userNavbar {
+    display: none;
 }
 
 #playdata {

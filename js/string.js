@@ -11,6 +11,7 @@ const GAME_OVER_TITLE = "GAME OVER";
 const GAME_OVER_BODY = "You have already made mistakes<br> 7 times...";
 const RANKING_TEXT = "Ranking"
 const SUBMIT_BTN = "SUBMIT";
+const SUBMIT_SUCESS_TEXT = "ACCEPTED";
 const SUBMIT_ERROR_TEXT = "REJECTED";
 const CLOSE_BTN = "CLOSE";
 const NAME_ALERT_TEXT = "Please enter valid user name.";

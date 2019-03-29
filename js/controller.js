@@ -64,10 +64,10 @@ const processLetterBtnEvent = (letter) => {
         //When the letter is not found yet.
         if(repeat === false) {
             
-            Model.playSound(CORRECT_AUDIO_FILE);
-            View.showLetter(index);
-            Model.addScore();
-            View.updateScore();
+            playSound(CORRECT_AUDIO_FILE);
+            showLetter(index);
+            addScore();
+            updateScore();
             
             if(isTrialEnd()) {
                 setTimeout(function() {
@@ -77,19 +77,19 @@ const processLetterBtnEvent = (letter) => {
         
         } else {
             
-            Model.playSound(CORRECT_AUDIO_FILE);
+            playSound(CORRECT_AUDIO_FILE);
         
         }
        
     //When a wrong letter is tapped.
     } else {
 
-        Model.playSound(WRONG_AUDIO_FILE);
-        Model.countMistake();
+        playSound(WRONG_AUDIO_FILE);
+        countMistake();
         if(isGameOver()) {
            gameOver();
         }
-        View.changeHangCatImg();
+        changeHangCatImg();
     
     }
 }
@@ -110,13 +110,10 @@ const gameOver = () => {
 
 }
 
-    
-
-
 //Start Game.
 const gameStart = () => {  
-    quizArray = Model.createDataObjArray(hints, answers, 5);
-    const current = Model.generateRandomNumber(quizArray.length);
+    quizArray = createDataObjArray(hints, answers, 5);
+    const current = generateRandomNumber(quizArray.length);
     const curHint = quizArray[current].hint;
     const curAnswer = quizArray[current].answer;
     
@@ -134,7 +131,7 @@ const restartGame = () => {
     changeHangCatImg();
     removeFadeOutOfHangCatImg(); /*Make it visible*/
 
-    //Update score & trial View.
+    //Update score & trial 
     updateScore();
     updateTrial();
     
@@ -147,14 +144,14 @@ const restartGame = () => {
 
 //Create new hint & word for next trial.
 const createNextTrial = () => {
-    const current = Model.generateRandomNumber(quizArray.length);
+    const current = generateRandomNumber(quizArray.length);
     const curHint = quizArray[current].hint;
     const curAnswer = quizArray[current].answer;
 
     //Make a sound.
-    Model.playSound(NEXT_TRIAL_AUDIO_FILE);
+    playSound(NEXT_TRIAL_AUDIO_FILE);
     
-    //Increment the number of trial & update trial view.
+    //Increment the number of trial & update trial 
     countTrial();
     updateTrial();
     
@@ -162,8 +159,8 @@ const createNextTrial = () => {
     removePreviousTrial();
     
     //Create a new hint & word.
-    View.createHint(curHint);
-    View.createWord(curAnswer);
+    createHint(curHint);
+    createWord(curAnswer);
 
     //Create a new array of answer letters & assign into variable.
     lettersArray = splitWordIntoLetters(curAnswer);
@@ -179,6 +176,7 @@ const processSignUp = () => {
         
         for(let i = 0; i < validateResult.length; ++i) {
             
+            //Display alerts.
             const alertId = validateResult[i];
             showAlert(alertId);
         
@@ -186,24 +184,30 @@ const processSignUp = () => {
        
     } else {
         
+        hideAlerts('.inputAlerts');
+
         //Try to create account.
         const result = createUserAccount(userInputs);
         result.then(function (value) {
     
-        //When account creation failed.
-        if(value != true) {
-        
-            changeAlertMessage('#emailAlert', value); /* Error message will be returned*/
-            changeViewOfButton('#signUpSubmitBtn', SUBMIT_ERROR_TEXT);
-        
-        } else {
+            //When account creation failed.
+            if(value != true) {
+
+                changeAlertMessage('#emailAlert', value); /* Error message will be returned*/
+                changeViewOfButton('#signUpSubmitBtn', SUBMIT_ERROR_TEXT);
+                removeInputs('.signUpInputs');
             
-            //Add user name to the account.
-            addNameToAccount(userInputs);
-            hideModal('#signup_modal');
-            location.reload();
-        }   
+            } else {
+               
+                //Add user name to the account.
+                addNameToAccount(userInputs);
+                changeViewOfButton('#signUpSubmitBtn', SUBMIT_SUCESS_TEXT);
+                hideModal('#signup_modal');
+                //location.reload();
+            }   
           
+            
+
         }).catch(function (error) {
             
             console.log(error);
@@ -216,7 +220,7 @@ const processSignUp = () => {
 const processLogin = () => {
     const userInputs = getUserInputs('.loginInputs');
     const validateResult = validateUserInput(userInputs);
-    console.log(userInputs)
+
      //When user inputs has some errors.
      if(validateResult.length != 0) {
         
@@ -231,11 +235,28 @@ const processLogin = () => {
         
         //Try login.
         loginToAccount(userInputs).then(function (result) {
+            
             //Login success.
             if(result === true) {
                 
+                firebase.auth().onAuthStateChanged(function(user) {
+                    let username;
+                    
+                    if (user) {
+                        console.log(user)    
+                        if(user.displayName != null) {
+                            
+                            username = user.displayName;    
+                            alert(username)
+                        } else {
+                            
+                            username  = 'No Name';
+                        }
+                    }
+                createUserNavbar(username);
+                switchNavBar();
                 hideModal('#login_modal');
-            
+                });
             //Login failed.
             } else {
                 
@@ -245,6 +266,10 @@ const processLogin = () => {
             }
         })
     }
+}
+
+const processLogOut = () => {
+    logOut();
 }
 
 gameStart();

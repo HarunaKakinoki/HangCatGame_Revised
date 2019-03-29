@@ -1,5 +1,5 @@
-
-const appName = () => {
+//Display Application name on the left top of the page.
+const showAppName = () => {
     const appName = $('<a/>').attr({
         href : 'index.html',
         id : 'appName'
@@ -7,7 +7,8 @@ const appName = () => {
     $('#appName_container').append(appName);
 }
 
-const navBar = () => {
+//Navigation bar.
+const createNavBar = () => {
     //Navbar links.
     const signup = $('<a/>')
     . attr({
@@ -37,7 +38,34 @@ const navBar = () => {
     $('#navbar').append(signup, login, ranking);
 }
 
-const playData = () => {
+//Nav bar for user page.(After login)
+const createUserNavbar = (name) => {
+    const loginAs = $('<span/>')
+    . attr({
+        class : 'navLinks',
+        id : 'userName'
+    })
+    .text('Login as : ' + name);
+
+    const logout = $('<a/>')
+    .attr({
+        class : 'navLinks',
+        href : '#'
+    })
+    .text('Log out');
+
+    const ranking = $('<a/>')
+    .attr({
+        class : 'navLinks',
+        href : 'rank.html'
+    })
+    .text('Ranking');
+
+    $('#userNavbar').append(loginAs, logout, ranking);
+}
+
+//User's play data on index.html.
+const createPlayData = () => {
     const scoreHeader = $('<span/>').attr('class', 'playdataHeaders')
                         .text(SCORE_TEXT); 
     const userScore = $('<span/>').attr('id', 'score')
@@ -51,7 +79,8 @@ const playData = () => {
     $('#playdata').append(scoreHeader, userScore,  trialHeader, numOfTrial);
 }
 
-const hangCatImg = () => {
+//Create hangCat image.
+const createHangCatImg = () => {
     const $div = $('<div/>').attr({
         class : '',
         id : 'hangCatImg_container'
@@ -67,7 +96,8 @@ const hangCatImg = () => {
     $('#img_container').append($div);
 }
 
-const restartBtn = () => {
+//Create Restart button.
+const createRestartBtn = () => {
     const btn = $('<button/>')
     .attr({
         class : 'btn btn-danger buttons',
@@ -79,7 +109,8 @@ const restartBtn = () => {
     $('#buttons_container').append(btn);
 }
 
-const hint = (current_hint) => {
+//Create current hint.
+const createHint = (current_hint) => {
     const $div = $('<div/>')
     .attr({
         id : 'hint'
@@ -88,7 +119,8 @@ const hint = (current_hint) => {
     $('#hint_container').append($div);
 }
 
-const word = (current_word) => {
+//Create current word.
+const createWord = (current_word) => {
     const $div = $('<div/>').attr({
         class : 'col-12',
         id : 'curWordField'
@@ -111,7 +143,8 @@ const word = (current_word) => {
     }
 }
 
-const letters = function() {
+//Create letter buttons(a to z).
+const createLetters = function() {
     for (let i = 'a'.charCodeAt(0); i <= 'z'.charCodeAt(0); i++) {
         const letter = String.fromCharCode(i);
         
@@ -129,7 +162,8 @@ const letters = function() {
     }
 }
 
-const saveBtn = () => {
+//Create Save button.
+const createSaveBtn = () => {
     const btn = $('<button/>').attr({
         class : 'btn btn-primary buttons',
         id : 'saveBtn'
@@ -172,7 +206,8 @@ const modal = (modal_name) => {
    $('#' + modal_name + '_body').append($div);
 }
 
-const signUp = () => {
+//Create sign up modal.
+const createSignUpModal = () => {
     const modalName = 'signup';
    
     //Create a framework of a modal window.
@@ -228,7 +263,8 @@ const signUp = () => {
     $('#' + modalName + '_footer').append(submit);
 }
 
-const logIn = () => {
+//Create login modal.
+const createLoginModal = () => {
     const modalName = 'login';
    
     //Create a framework of a modal window.
@@ -272,7 +308,8 @@ const logIn = () => {
     $('#' + modalName + '_footer').append(submit);
 }
 
-const restart = () => {
+//Create a modal for confirm restarting.
+const createRestartModal = () => {
     const modalName = 'restart';
     
     //Create a framwork of a modal window.
@@ -309,7 +346,8 @@ const restart = () => {
     $('#' + modalName + '_footer').append(yesBtn, noBtn);
 }
 
-const gameover = () => {
+//Create a modal appearing when gameover.
+const createGameOverModal = () => {
     const modalName = 'gameover';
     
     //Create a framwork of a modal window.
@@ -338,14 +376,17 @@ const gameover = () => {
     $('#' + modalName + '_footer').append(restartBtn);
 }
 
+//Display a letter of a current word.
 const showLetter = (index) => {
     $('#answer' + index).css('visibility', 'visible');
 }
 
+//Change hang cat image(according to user's mistake.)
 const changeHangCatImg = () => {
     $('#hangCatImg').attr('src', '../images/hangCat/hanged' + mistake + '.png');
 }
 
+//Hang cat Image will be faded out.
 const fadeOutHangCatImg = () => {
     $('#hangCatImg').css({
         'visibility': 'hidden',
@@ -354,6 +395,7 @@ const fadeOutHangCatImg = () => {
     });
 }
 
+//Remove fade out effect from the image.
 const removeFadeOutOfHangCatImg = () => {
     $('#hangCatImg').css({
         'visibility': 'visible',
@@ -362,74 +404,82 @@ const removeFadeOutOfHangCatImg = () => {
     });
 }
 
+//Change the display of score.
 const updateScore = () => {
     $('#score').text(score);
 }
 
+//Change the display of the number of trials.
 const updateTrial = () => {
     $('#trial').text(trial);
 }
 
+//Display alert on signup or login modal.
 const showAlert = (inputField_id) => {
     $(inputField_id).css('visibility', 'visible');
 }
 
+//Hide all alerts.
+const hideAlerts = (input_className) => {
+    $(input_className).css('visibility', 'hidden');
+}
+
+//Change alert message on signup or login modal.
 const changeAlertMessage = (div_id, message) => {
     $(div_id).text(message)
              .css('visibility', 'visible');
 }
 
+//Remove previous hint & word.
 const removePreviousTrial = () => {
     $('#hint').remove();
     $('#curWordField').remove();
 }
 
+//Open modal window.
 const showModal = (modal_id) => {
     $('#gameover_modal').modal('show');
 }
 
+//Hide modal window.
 const hideModal = (modal_id) => {
     $(modal_id).modal('hide');
 }
 
+//Change the text of a button.
 const changeViewOfButton = (button_id, text) => {
     $(button_id).text(text);
 }
 
+const removeInputs = (input_className) => {
+    $(input_className).each(function() {
+      const id = $(this).attr('id');
+      alert(id)
+      $(id).val('');
+    });
+}
+
+//Dispaly user navbar & hide default navbar.
+const switchNavBar = () => {
+    $('#navbar').css('display', 'none');
+    $('#userNavbar').css('display', 'inline-block');
+}
+ 
 //When page is loaded, rengder all components in the page.
 const renderViews = (current_hint, current_question) => {
-    View.showAppName();
-    View.createNavBar();
-    View.createPlayData();
-    View.createHangImg();
-    View.createRestartBtn();
-    View.createHint(current_hint);
-    View.createWord(current_question);
-    View.createLetters();
-    View.createSaveBtn();
-    View.createSignUpModal();
-    View.createLoginModal();
-    View.createRestartModal();
-    View.createGameOverModal();
+    showAppName();
+    createNavBar();
+    createPlayData();
+    createHangCatImg();
+    createRestartBtn();
+    createHint(current_hint);
+    createWord(current_question);
+    createLetters();
+    createSaveBtn();
+    createSignUpModal();
+    createLoginModal();
+    createRestartModal();
+    createGameOverModal();
 } 
 
-const View = {
-    showAppName : appName,
-    createNavBar : navBar,
-    createPlayData : playData,
-    createHangImg : hangCatImg,
-    createRestartBtn : restartBtn,
-    createHint : hint,
-    createWord : word,
-    createLetters : letters,
-    createSaveBtn : saveBtn,
-    createSignUpModal : signUp,
-    createLoginModal : logIn,
-    createRestartModal : restart,
-    createGameOverModal : gameover,
-    showLetter: showLetter,
-    showAlert: showAlert,
-    changeHangCatImg: changeHangCatImg,
-    updateScore: updateScore
-};
 
