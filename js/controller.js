@@ -18,6 +18,10 @@ const setBtnEvents = () => {
         processLogin();
     });
 
+    $('#logOut').click(function() {
+        processLogOut();
+    });
+
     //Yes Button on the restart modal.
     $('#yes').click(function() {
 
@@ -206,7 +210,6 @@ const processSignUp = () => {
                 //location.reload();
             }   
           
-            
 
         }).catch(function (error) {
             
@@ -235,28 +238,26 @@ const processLogin = () => {
         
         //Try login.
         loginToAccount(userInputs).then(function (result) {
-            
+            let username;
+
             //Login success.
             if(result === true) {
                 
-                firebase.auth().onAuthStateChanged(function(user) {
-                    let username;
+                const user = firebase.auth().currentUser;
+                console.log(user) 
+                if(user.displayName != null) {
                     
-                    if (user) {
-                        console.log(user)    
-                        if(user.displayName != null) {
-                            
-                            username = user.displayName;    
-                            alert(username)
-                        } else {
-                            
-                            username  = 'No Name';
-                        }
-                    }
-                createUserNavbar(username);
-                switchNavBar();
+                    username = user.displayName;    
+                   
+                } else {
+                    
+                    username  = 'No Name';
+                }
+                
+                displayUserNameOnNavBar(username);
+                displayUserNavBar();
                 hideModal('#login_modal');
-                });
+        
             //Login failed.
             } else {
                 
@@ -270,6 +271,7 @@ const processLogin = () => {
 
 const processLogOut = () => {
     logOut();
+    displayNavBar();
 }
 
 gameStart();

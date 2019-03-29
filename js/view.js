@@ -39,17 +39,17 @@ const createNavBar = () => {
 }
 
 //Nav bar for user page.(After login)
-const createUserNavbar = (name) => {
+const createUserNavbar = () => {
     const loginAs = $('<span/>')
     . attr({
         class : 'navLinks',
         id : 'userName'
-    })
-    .text('Login as : ' + name);
+    });
 
     const logout = $('<a/>')
     .attr({
         class : 'navLinks',
+        id : 'logOut',
         href : '#'
     })
     .text('Log out');
@@ -460,15 +460,26 @@ const removeInputs = (input_className) => {
 }
 
 //Dispaly user navbar & hide default navbar.
-const switchNavBar = () => {
+const displayUserNavBar = () => {
     $('#navbar').css('display', 'none');
     $('#userNavbar').css('display', 'inline-block');
 }
+
+//Dispaly user navbar & hide default navbar.
+const displayNavBar = () => {
+    $('#userNavbar').css('display', 'none');
+    $('#navbar').css('display', 'inline-block');
+}
+
+const displayUserNameOnNavBar = (name) => {
+    $('#userName').text('Login as : ' + name);
+} 
  
 //When page is loaded, rengder all components in the page.
 const renderViews = (current_hint, current_question) => {
     showAppName();
     createNavBar();
+    createUserNavbar();
     createPlayData();
     createHangCatImg();
     createRestartBtn();

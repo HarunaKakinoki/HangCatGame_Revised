@@ -235,11 +235,14 @@ const addNameToAccount = (userInputs) => {
     //Add user name.
     const user = firebase.auth().currentUser;
     user.updateProfile({
+        
         displayName: name
+    
     }).then(function () {
-      console.log(user.displayName);  
+      
+        console.log(user.displayName);  
+    
     });
-   
 }
 
 const loginToAccount = (userInputs) => {
@@ -258,13 +261,13 @@ const loginToAccount = (userInputs) => {
         if (user) {
             result = true;
         }
-    });
+    })
     
     const returnVal = new Promise(function (resolve, reject) {
         setTimeout(function () {
             //result = true when sucess. When fail, result will be an error message.
             resolve(result); 
-        }, 500);
+        }, 1000);
     });
 
     return returnVal;
