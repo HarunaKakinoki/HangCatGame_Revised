@@ -277,8 +277,6 @@ const processLogin = () => {
                 changeViewOfButton('#loginSubmitBtn', SUBMIT_ERROR_TEXT);
             
             }
-
-            clearModal('.loginInputs');
         })
     }
 }
