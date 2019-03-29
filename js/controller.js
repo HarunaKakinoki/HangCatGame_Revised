@@ -10,6 +10,16 @@ const setBtnEvents = () => {
         processLetterBtnEvent(letter);
     });
 
+    $('#signup').click(function() {
+        clearModal('.signUpInputs');
+        showModal('#signup_modal');
+    });
+
+    $('#login').click(function() {
+        clearModal('.loginInputs');
+        showModal('#login_modal');
+    });
+
     $('#signUpSubmitBtn').click(function() {
         processSignUp();
     });
@@ -236,6 +246,8 @@ const processLogin = () => {
        
     } else {
         
+        hideAlerts('.inputAlerts');
+
         //Try login.
         loginToAccount(userInputs).then(function (result) {
             let username;
@@ -265,6 +277,8 @@ const processLogin = () => {
                 changeViewOfButton('#loginSubmitBtn', SUBMIT_ERROR_TEXT);
             
             }
+
+            clearModal('.loginInputs');
         })
     }
 }

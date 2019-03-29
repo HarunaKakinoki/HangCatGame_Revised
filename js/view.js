@@ -13,18 +13,16 @@ const createNavBar = () => {
     const signup = $('<a/>')
     . attr({
         class : 'navLinks',
-        href : '#',
-        'data-toggle': 'modal',
-        'data-target': '#signup_modal' /*Trigger signup modal window*/
+        id : 'signup',
+        href : '#'
     })
     .text(SIGNUP_TEXT);
 
     const login = $('<a/>')
     . attr({
         class : 'navLinks',
-        href : '#',
-        'data-toggle': 'modal',
-        'data-target': '#login_modal' /*Trigger login modal window*/
+        id : 'login',
+        href : '#'
     })
     .text(LOGIN_TEXT);
 
@@ -438,7 +436,7 @@ const removePreviousTrial = () => {
 
 //Open modal window.
 const showModal = (modal_id) => {
-    $('#gameover_modal').modal('show');
+    $(modal_id).modal('show');
 }
 
 //Hide modal window.
@@ -451,12 +449,12 @@ const changeViewOfButton = (button_id, text) => {
     $(button_id).text(text);
 }
 
-const removeInputs = (input_className) => {
+//Clear all inputs & alerts displayed on a modal.
+const clearModal = (input_className) => {
     $(input_className).each(function() {
-      const id = $(this).attr('id');
-      alert(id)
-      $(id).val('');
+      $(this).val('');
     });
+    hideAlerts('.inputAlerts');
 }
 
 //Dispaly user navbar & hide default navbar.
