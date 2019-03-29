@@ -238,11 +238,15 @@ const addNameToAccount = (userInputs) => {
         
         displayName: name
     
-    }).then(function () {
-      
-        console.log(user.displayName);  
-    
     });
+
+    const returnVal = new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            resolve(name); 
+        }, 1000);
+    });
+
+    return returnVal;
 }
 
 const loginToAccount = (userInputs) => {

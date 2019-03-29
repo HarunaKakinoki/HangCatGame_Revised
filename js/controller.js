@@ -136,9 +136,11 @@ const gameStart = () => {
        
         if (user) {
 
-            displayUserNameOnNavBar(user.displayName);
-            displayUserNavBar();
-       
+            if(user.displayName != null) {
+                displayUserNameOnNavBar(user.displayName);
+                displayUserNavBar();
+            }
+
         }
     });
 
@@ -212,7 +214,7 @@ const processSignUp = () => {
         //Try to create account.
         const result = createUserAccount(userInputs);
         result.then(function (value) {
-    
+            
             //When account creation failed.
             if(value != true) {
 
@@ -222,11 +224,13 @@ const processSignUp = () => {
             
             } else {
                
-                //Add user name to the account.
-                addNameToAccount(userInputs);
-                changeViewOfButton('#signUpSubmitBtn', SUBMIT_SUCESS_TEXT);
-                hideModal('#signup_modal');
-                //location.reload();
+                //Add user name to the account.()
+                addNameToAccount(userInputs).then(function(username) {
+                    displayUserNameOnNavBar(username);
+                    displayUserNavBar();
+                    changeViewOfButton('#signUpSubmitBtn', SUBMIT_SUCESS_TEXT);
+                    hideModal('#signup_modal');
+                });
             }   
           
 
