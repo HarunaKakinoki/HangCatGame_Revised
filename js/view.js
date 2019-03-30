@@ -498,6 +498,7 @@ const showToast = () => {
     toastr.options.closeButton = true;
     toastr.options.positionClass = 'toast-bottom-right';
     toastr.success(TOAST_TEXT);
+    setTimeout(function() {toastr.clear();}, 1000);
 }
 
 //When page is loaded, rengder all components in the page.
