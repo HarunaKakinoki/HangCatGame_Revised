@@ -17,9 +17,9 @@ const CLOSE_BTN = "CLOSE";
 const NAME_ALERT_TEXT = "Please enter valid user name.";
 const EMAIL_ALERT_TEXT = "Please enter valid email address.";
 const PASSWORD_ALERT_TEXT = "Please enter valid password.";
-const BALLOON_CONTENT = 'To save your score, Sign up or Log in.';
-
+const BALLOON_TEXT = "To save your score, Sign up or Log in.";
+const TOAST_TEXT = "Saved successfully!"
 //Audio files.
-const NEXT_TRIAL_AUDIO_FILE = '../sounds/moveToNext.mp3';
-const CORRECT_AUDIO_FILE = '../sounds/correct.mp3';
-const WRONG_AUDIO_FILE = '../sounds/wrong.mp3';
+const NEXT_TRIAL_AUDIO_FILE = "../sounds/moveToNext.mp3";
+const CORRECT_AUDIO_FILE = "../sounds/correct.mp3";
+const WRONG_AUDIO_FILE = "../sounds/wrong.mp3";

@@ -141,9 +141,10 @@ const gameStart = () => {
                 displayUserNavBar();
             }
 
-            hideBalloon();
+            hideBalloon('#saveBtn');
             $('#saveBtn').click(function() {
                 saveUserData();
+                showToast();
             });
 
         }
@@ -306,7 +307,7 @@ const processLogout = () => {
     displayNavBar();
 
     //Set balloon on save button.
-    setBalloon();
+    setBalloon('#saveBtn', BALLOON_TEXT);
 
     //Disable save button.
     $('saveBtn').click(function(){
