@@ -141,6 +141,11 @@ const gameStart = () => {
                 displayUserNavBar();
             }
 
+            hideBalloon();
+            $('#saveBtn').click(function() {
+                saveUserData();
+            });
+
         }
     });
 
@@ -220,7 +225,6 @@ const processSignUp = () => {
 
                 changeAlertMessage('#emailAlert', value); /* Error message will be returned*/
                 changeViewOfButton('#signUpSubmitBtn', SUBMIT_ERROR_TEXT);
-                removeInputs('.signUpInputs');
             
             } else {
                
@@ -269,7 +273,7 @@ const processLogin = () => {
             if(result === true) {
                 
                 const user = firebase.auth().currentUser;
-                console.log(user) 
+                
                 if(user.displayName != null) {
                     
                     username = user.displayName;    
@@ -297,7 +301,17 @@ const processLogin = () => {
 //Log out.
 const processLogout = () => {
     logout();
+
+    //Display normal nav bar.
     displayNavBar();
+
+    //Set balloon on save button.
+    setBalloon();
+
+    //Disable save button.
+    $('saveBtn').click(function(){
+        return false;
+    })
 }
 
 gameStart();

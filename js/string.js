@@ -17,7 +17,7 @@ const CLOSE_BTN = "CLOSE";
 const NAME_ALERT_TEXT = "Please enter valid user name.";
 const EMAIL_ALERT_TEXT = "Please enter valid email address.";
 const PASSWORD_ALERT_TEXT = "Please enter valid password.";
-const BALLOON_CONTENT = '<span>To save your score, please <span>Sign up</span> or <span>Log in</span></span>';
+const BALLOON_CONTENT = 'To save your score, Sign up or Log in.';
 
 //Audio files.
 const NEXT_TRIAL_AUDIO_FILE = '../sounds/moveToNext.mp3';

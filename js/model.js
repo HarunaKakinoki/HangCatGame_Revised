@@ -146,6 +146,17 @@ const setGameOverFlag = () => {
     gameOverFlag = true;
 }
 
+const saveUserData = () => {
+    //Get the current userID
+    const user = firebase.auth().currentUser;
+    const userId = user.uid;
+    firebase.database().ref('users/' + userId).set({
+        username: user.displayName,
+        score: score,
+        trial: trial
+    });
+}
+
 const getUserInputs = (input_className) => {
     let userInputArray = [];
     

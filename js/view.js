@@ -480,25 +480,20 @@ const displayUserNameOnNavBar = (name) => {
 } 
 
 //Balloon on a save button.
-const createBalloon = () => {
-    $('#saveBtn').balloon({
-        tipSize: 0,
-        offsetY: 0, offsetX: 0,
-        html: true,
-        contents: BALLOON_CONTENT,
-        css: {
-            border: 'solid 2px #5baec0',
-            fontSize: '1em',
-            fontWeight: 'bold',
-            lineHeight: '2',
-            backgroundColor: 'white',
-            color: 'black',
-            position: 'right'
-        },
-        showDuration: "slow",
-        showAnimation: function(d) { this.fadeIn(d); }
+const setBalloon = () => {
+    $('#saveBtn').attr({
+        'data-balloon':  BALLOON_CONTENT,
+        'data-balloon-pos' : 'up'
     });
 }
+
+const hideBalloon = () => {
+    $('#saveBtn').removeAttr(
+        'data-balloon',
+        'data-balloon-pos'
+    );
+}
+
 
 //When page is loaded, rengder all components in the page.
 const renderViews = (current_hint, current_question) => {
@@ -516,7 +511,7 @@ const renderViews = (current_hint, current_question) => {
     createLoginModal();
     createRestartModal();
     createGameOverModal();
-    createBalloon();
+    setBalloon();
 } 
 
 
