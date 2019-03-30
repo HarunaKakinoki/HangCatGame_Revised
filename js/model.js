@@ -157,6 +157,36 @@ const saveUserData = () => {
     });
 }
 
+//Retrieve user names & scores from firebase database, push onto table in rankpage.
+function retrieveUsersData() {
+    const ref = firebase.database().ref('users');
+    let usersArray = [];
+ 
+    ref.orderByChild('score').on('value', function (snap) {
+        // Keep the local user object synced with the Firebase userRef
+        const users = snap.val();
+        const keys = Object.keys(users);
+
+        for(let i = 0; i < keys.length; ++i) {
+            const k = keys[i];
+            const user = {
+                name : users[k].username,
+                score : users[k].score,
+                trial : users[k].trial
+            };
+            usersArray.push(user);
+        }
+    });
+
+    const returnVal = new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            resolve(usersArray); 
+        }, 1000);
+    });
+
+    return returnVal;
+}
+
 const getUserInputs = (input_className) => {
     let userInputArray = [];
     

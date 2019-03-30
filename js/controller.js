@@ -61,6 +61,7 @@ const setBtnEvents = () => {
     });
 }
 
+//Process when user tap a letter button.
 const processLetterBtnEvent = (letter) => {
     //Search the letter from a word by calling function & 
     //get the return values.
@@ -131,7 +132,7 @@ const gameStart = () => {
     const curHint = quizArray[current].hint;
     const curAnswer = quizArray[current].answer;
     
-    renderViews(curHint, curAnswer);
+    renderIndexViews(curHint, curAnswer);
     firebase.auth().onAuthStateChanged(function(user) {
        
         if (user) {
@@ -286,6 +287,7 @@ const processLogin = () => {
                 
                 displayUserNameOnNavBar(username);
                 displayUserNavBar();
+                changeViewOfButton('#loginSubmitBtn', LOGIN_TEXT);
                 hideModal('#login_modal');
         
             //Login failed.
@@ -299,6 +301,14 @@ const processLogin = () => {
     }
 }
 
+const createRankTableFromData = () => {
+    retrieveUsersData().then(function(usersArray) {
+        createRankTable(usersArray);
+    }).catch(function(error) {
+        console.log(error);
+    });
+}
+
 //Log out.
 const processLogout = () => {
     logout();
@@ -309,13 +319,12 @@ const processLogout = () => {
     //Set balloon on save button.
     setBalloon('#saveBtn', BALLOON_TEXT);
 
-    //Disable save button.
-    $('saveBtn').click(function(){
-        return false;
-    })
+    //Disable functions belong to save button.
+    $('#saveBtn').prop('onclick', null).off('click');
 }
 
 gameStart();
+createRankTableFromData();
 
 
 

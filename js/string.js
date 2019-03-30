@@ -19,6 +19,12 @@ const EMAIL_ALERT_TEXT = "Please enter valid email address.";
 const PASSWORD_ALERT_TEXT = "Please enter valid password.";
 const BALLOON_TEXT = "To save your score, Sign up or Log in.";
 const TOAST_TEXT = "Saved successfully!"
+
+const RANK_HEADER = "RANK";
+const NAME_HEADER = "NAME";
+const TRIAL_HEADER = "TRIAL";
+const SCORE_HEADER = "SCORE";
+
 //Audio files.
 const NEXT_TRIAL_AUDIO_FILE = "../sounds/moveToNext.mp3";
 const CORRECT_AUDIO_FILE = "../sounds/correct.mp3";

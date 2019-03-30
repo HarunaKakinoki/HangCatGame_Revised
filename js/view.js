@@ -495,14 +495,27 @@ const hideBalloon = (element_id) => {
 }
 
 const showToast = () => {
-    toastr.options.closeButton = true;
-    toastr.options.positionClass = 'toast-bottom-right';
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "positionClass": "toast-bottom-center",
+        "onclick": null,
+        "showDuration": "1000",
+        "hideDuration": "0",
+        "timeOut": "0",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut",
+        "preventDuplicates": true
+    };
     toastr.success(TOAST_TEXT);
     setTimeout(function() {toastr.clear();}, 1000);
 }
 
 //When page is loaded, rengder all components in the page.
-const renderViews = (current_hint, current_question) => {
+const renderIndexViews = (current_hint, current_question) => {
     showAppName();
     createNavBar();
     createUserNavbar();
@@ -519,5 +532,50 @@ const renderViews = (current_hint, current_question) => {
     createGameOverModal();
     setBalloon('#saveBtn', BALLOON_TEXT);
 } 
+
+const createRankTable = (users_array) => {
+    const $div = $('<div/>').attr({
+        class : 'table-responsive',
+        id : 'tableField'
+    });
+
+    const $table = $('<table/>').attr({
+        class : 'table table-striped',
+        id : 'table'
+    });
+
+    const $thead = $('<thead/>');
+    const $tr = $('<tr/>');
+    const rankHeader = $('<th/>').attr('class', 'tableHeaders')
+                        .text(RANK_HEADER);
+    const nameHeader = $('<th/>').attr('class', 'tableHeaders')
+                        .text(NAME_HEADER);
+    const trialHeader = $('<th/>').attr('class', 'tableHeaders')
+                        .text(TRIAL_HEADER);
+    const scoreHeader = $('<th/>').attr('class', 'tableHeaders')
+                        .text(SCORE_HEADER);
+    const $tbody = $('<tbody/>');   
+
+    //Process all user data.
+    for(let i = 0; i < users_array.length; ++i) {
+        const $tr = $('<tr/>');
+        const rank = $('<td/>').text(i + 1);
+        const name = $('<td/>').text(users_array[i].name);
+        const trial = $('<td/>').text(users_array[i].trial);
+        const score = $('<td/>').text(users_array[i].score);
+        $($tr).append(rank, name, trial, score);
+        $($tbody).append($tr);
+    }
+
+    $($div).append($table);
+    $($table).append($thead, $tbody);
+    $($thead).append($tr);
+    $($tr).append(rankHeader, nameHeader, trialHeader, scoreHeader);
+    $('#rank_table').append($div);
+}
+
+const renderRankViews = () => {
+    
+}
 
 
