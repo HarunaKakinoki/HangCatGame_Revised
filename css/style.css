@@ -30,6 +30,10 @@ p { margin: 0;}
     display: inline-block;
 }
 
+#userName {
+    color: orange;
+}
+
 #playdata {
     text-align: center;
 }
@@ -39,9 +43,13 @@ p { margin: 0;}
     margin: 1em;
 }
 
+#hangCatImg_container {
+    text-align: center;
+}
+
 #hangCatImg {
-    margin: 0 1em 0 4em;
-    width: 100%;
+    margin: auto;
+    width: 70%;
 }
 
 #curWordField {
@@ -54,7 +62,7 @@ p { margin: 0;}
 }
 
 #hint {
-    width: 80%;
+    width: 100%;
     margin: auto;
     font-size: 1.5em;
 }
@@ -73,9 +81,9 @@ p { margin: 0;}
 }
 
 #letters_container {
-    width: 90%;
-    margin: 2em auto;
-    padding-left: 3em;
+    width: 100%;
+    margin: 2em auto 0 auto;
+    text-align: center;
 }
 
 .letterBtns {
@@ -84,6 +92,7 @@ p { margin: 0;}
 }
 
 #buttons_container {
+    margin-top: 1em;
     text-align: center;
 }
 
@@ -141,9 +150,138 @@ h1.summaryHeaders {
 }
 
 .summaryHeaders {
-    font-size : 1.5em;
+    font-size : 1.3em;
 }
 
 #summaryScore, #summaryTrial {
     font-size : 1.3em;
+}
+
+/*********************Responsive Settings**********************/
+/***Tablet (1024px)***/
+@media only screen and (max-width: 1024px) {
+
+    /*********************Index.html**************************/
+    #navbar, #userNavbar {
+        padding-top: 0;
+    }
+    .navLinks {
+        font-size: 1.7em;
+        margin: 0.2em;
+    }
+    
+    #hangCatImg {
+        width: 55%;
+    }
+
+    #hint_container {
+        margin-top: 1.5em;
+    }
+
+    #hint {
+        font-size: 1.7em;
+    }
+
+    .letterBtns {
+        width: 8.5%;
+        margin: 0.3em;
+    }
+
+    #buttons_container {
+        margin-top: 0.5em;
+    }
+
+    .buttons {
+        width: 25%;
+        margin: 0.5em;
+        font-size: 1.3em;
+    }
+
+    /************Modal Windows*************/
+
+    #restartImg, #gameOverImg {
+        width: 40%;
+    }
+
+}
+
+/***Small Device (568px)***/
+@media only screen and (max-width: 568px) {
+    
+    /*********************Index.html**************************/
+    #appName_container {
+        font-size: 2em;
+    }
+    
+    #navbar, #userNavbar {
+         display: none;
+    }
+    
+    .navLinks {
+        font-size: 1.3em;
+        margin:  0 0.3em;
+    }
+
+    #hint_container {
+        margin-top: 1.5em;
+    }
+
+    #hint {
+        font-size: 1em;
+    }
+
+    .answerLetterContainers {
+        width: 10%;
+        font-size: 1.5em;
+    }
+
+    #letters_container {
+        margin: 1em 0;
+    }
+
+    .letterBtns {
+        width: 8.5%;
+        margin: 0.2em;
+    }
+
+    #buttons_container {
+        margin-top: 0;
+    }
+
+    .buttons {
+        width: 30%;
+        margin: 0.6em;
+        font-size: 0.8em;
+    }
+
+    /************Modal Windows*************/
+
+    .modalTitles {
+        font-size: 1em;
+    }
+
+    .modalBtns {
+        width: 30%;
+        font-size: 0.8em;
+    }
+
+    #restartMessage, #gameoverMessage {
+        font-size: 1em;
+    }
+
+    /*********************rank.html**************************/
+
+    h1.summaryHeaders {
+        font-size: 1.5em;
+        margin: 0.3em;
+    }
+
+    .summaryHeaders {
+        font-size : 1em;
+    }
+
+    #summaryScore, #summaryTrial {
+        font-size : 1.2em;
+    }
+
 }

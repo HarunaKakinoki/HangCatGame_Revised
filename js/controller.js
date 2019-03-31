@@ -233,11 +233,11 @@ const processSignUp = () => {
             
             } else {
                
+                changeViewOfButton('#signUpSubmitBtn', SUBMIT_SUCESS_TEXT);
                 //Add user name to the account.()
                 addNameToAccount(userInputs).then(function(username) {
                     displayUserNameOnNavBar(username);
                     displayUserNavBar();
-                    changeViewOfButton('#signUpSubmitBtn', SUBMIT_SUCESS_TEXT);
                     hideModal('#signup_modal');
                 });
             }   

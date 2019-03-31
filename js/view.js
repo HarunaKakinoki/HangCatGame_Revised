@@ -581,7 +581,7 @@ const createRankTable = (users_array) => {
     const $tbody = $('<tbody/>');   
 
     //Process all user data.
-    for(let i = 0; i < users_array.length; ++i) {
+    for(let i = 0; i < 5; ++i) {
         const $tr = $('<tr/>');
         const rank = $('<td/>').text(i + 1);
         const name = $('<td/>').text(users_array[i].name);
