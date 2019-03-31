@@ -476,7 +476,7 @@ const displayNavBar = () => {
 }
 
 const displayUserNameOnNavBar = (name) => {
-    $('#userName').text('Login as : ' + name);
+    $('#userName').text(name);
 } 
 
 //Balloon on a save button.
@@ -533,6 +533,30 @@ const renderIndexViews = (current_hint, current_question) => {
     setBalloon('#saveBtn', BALLOON_TEXT);
 } 
 
+//Create user's play summary.
+const createRankSummary = () => {
+    const $div = $('<div/>').attr({
+        class : 'col-12',
+        id : 'summaryContainer'
+    });
+    const header = $('<h1/>').attr('class', 'summaryHeaders').text('Your Achievement!');
+    const scoreHeader = $('<p/>').attr('class', 'summaryHeaders').text('SCORE');
+    const trialHeader = $('<p/>').attr('class', 'summaryHeaders').text('TRIAL');
+    const score = $('<p/>').attr('id', 'summaryScore').html(0);
+    const trial = $('<p/>').attr('id', 'summaryTrial').html(0);
+
+    $('#rank_summary').append(header, $div);
+    $($div).append(scoreHeader, score, trialHeader, trial);
+}
+
+const updateUserSummary = (user_obj) => {
+    if(user_obj != null) {
+        $('#summaryScore').text(user_obj.score);
+        $('#summaryTrial').text(user_obj.trial);
+        localStorage.clear();
+    }
+}
+
 const createRankTable = (users_array) => {
     const $div = $('<div/>').attr({
         class : 'table-responsive',
@@ -575,7 +599,13 @@ const createRankTable = (users_array) => {
 }
 
 const renderRankViews = () => {
-    
+    showAppName();
+    createNavBar();
+    createUserNavbar();
+    createSignUpModal();
+    createLoginModal();
 }
+
+
 
 

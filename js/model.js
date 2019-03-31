@@ -6,6 +6,7 @@ let currentHint;
 let currentAnswer;
 let lettersArray; /*current word split into a letter*/
 let gameOverFlag = false;
+const STORAGE_KEY = 'currentUser'
 
 const hints = [
     "Language for iOS development", 
@@ -146,7 +147,15 @@ const setGameOverFlag = () => {
     gameOverFlag = true;
 }
 
-const saveUserData = () => {
+const saveUserDataToStorage = () => {
+    const user = {
+        score : score,
+        trial : trial
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
+}
+
+const saveUserDataToDatabase = () => {
     //Get the current userID
     const user = firebase.auth().currentUser;
     const userId = user.uid;
@@ -157,8 +166,22 @@ const saveUserData = () => {
     });
 }
 
+//The function to sort users array in order of score.
+const compare = (a,b) => {
+    if (a.score > b.score)
+      return -1;
+    if (a.score < b.score)
+      return 1;
+    return 0;
+}
+
+const getUsersDataFromStorage = () => {
+    const user = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    return user;
+}
+
 //Retrieve user names & scores from firebase database, push onto table in rankpage.
-function retrieveUsersData() {
+function getUsersDataFromDatabase() {
     const ref = firebase.database().ref('users');
     let usersArray = [];
  
@@ -176,12 +199,13 @@ function retrieveUsersData() {
             };
             usersArray.push(user);
         }
+        usersArray.sort(compare);
     });
 
     const returnVal = new Promise(function (resolve, reject) {
         setTimeout(function () {
             resolve(usersArray); 
-        }, 1000);
+        }, 1500);
     });
 
     return returnVal;
@@ -255,7 +279,7 @@ const createUserAccount = (userInputs) => {
         setTimeout(function () {
             //result = true when sucess. When fail, result will be an error message.
             resolve(result); 
-        }, 1000);
+        }, 2000);
     });
 
     return returnVal;
@@ -284,7 +308,7 @@ const addNameToAccount = (userInputs) => {
     const returnVal = new Promise(function (resolve, reject) {
         setTimeout(function () {
             resolve(name); 
-        }, 1000);
+        }, 2000);
     });
 
     return returnVal;

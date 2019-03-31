@@ -29,11 +29,27 @@
 
         <!--Main body of the app-->
         <div class="row">
-            <div class="col-12 rank_body">
+            <div class="col-12" id="rank_body">
                 
+                <!--User summary-->
+                <div class="row">
+                    <div class="col-12 fade-in" id="rank_summary"></div>
+                </div>
+
                 <!--Rank Table-->
                 <div class="row">
                     <div class="col-12" id="rank_table"></div>
+                </div>
+
+                <!-- Modal Windows-->
+                <!--Sign up-->
+                <div class="modal fade" id="signup_modal" role="dialog">
+                    <div class="modal-dialog" id="signup_body"></div>
+                </div>
+
+                <!--Login-->
+                <div class="modal fade" id="login_modal" role="dialog">
+                    <div class="modal-dialog" id="login_body"></div>
                 </div>
 
             </div><!--rank_body end-->

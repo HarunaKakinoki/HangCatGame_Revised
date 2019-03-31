@@ -82,6 +82,7 @@ const processLetterBtnEvent = (letter) => {
             showLetter(index);
             addScore();
             updateScore();
+            saveUserDataToStorage();
             
             if(isTrialEnd()) {
                 setTimeout(function() {
@@ -144,10 +145,12 @@ const gameStart = () => {
 
             hideBalloon('#saveBtn');
             $('#saveBtn').click(function() {
-                saveUserData();
+                saveUserDataToDatabase();
                 showToast();
             });
 
+        } else {
+            displayNavBar();     
         }
     });
 
@@ -302,7 +305,10 @@ const processLogin = () => {
 }
 
 const createRankTableFromData = () => {
-    retrieveUsersData().then(function(usersArray) {
+    createRankSummary();
+    const user = getUsersDataFromStorage();
+    updateUserSummary(user);
+    getUsersDataFromDatabase().then(function(usersArray) {
         createRankTable(usersArray);
     }).catch(function(error) {
         console.log(error);
@@ -326,5 +332,9 @@ const processLogout = () => {
 gameStart();
 createRankTableFromData();
 
+
+
+  $('#rank_body').fadeIn(3000);
+ 
 
 
