@@ -133,38 +133,6 @@ const gameOver = () => {
 
 }
 
-//Start Game.
-const gameStart = () => {  
-    questionArray = createDataObjArray(hints, answers, 5);
-    const current = generateRandomNumber(questionArray.length);
-    const curHint = questionArray[current].hint;
-    const curAnswer = questionArray[current].answer;
-    
-    renderIndexViews(curHint, curAnswer);
-    firebase.auth().onAuthStateChanged(function(user) {
-       
-        if (user) {
-
-            if(user.displayName != null) {
-                displayUserNameOnNavBar(user.displayName);
-                displayUserNavBar();
-            }
-
-            hideBalloon('#saveBtn');
-            $('#saveBtn').click(function() {
-                saveUserDataToDatabase();
-                showToast();
-            });
-
-        } else {
-            displayNavBar();     
-        }
-    });
-
-    lettersArray = splitWordIntoLetters(curAnswer);
-    setBtnEvents(); 
-}
-
 //Restart Game.
 const restartGame = () => {
     
@@ -311,22 +279,6 @@ const processLogin = () => {
     }
 }
 
-const createRankTableFromData = () => {
-    createRankSummary();
-    const user = getUserDataFromStorage();
-    updateUserSummary(user);
-    
-    getUsersDataFromDatabase().then(function(usersArray) {
-        
-        createRankTable(usersArray);
-    
-    }).catch(function(error) {
-        
-        console.log(error);
-    
-    });
-}
-
 //Log out.
 const processLogout = () => {
     logout();
@@ -341,12 +293,69 @@ const processLogout = () => {
     $('#saveBtn').prop('onclick', null).off('click');
 }
 
-gameStart();
-createRankTableFromData();
+//Start Game.
+const gameInit = () => {  
+    questionArray = createDataObjArray(hints, answers, 5);
+    const current = generateRandomNumber(questionArray.length);
+    const curHint = questionArray[current].hint;
+    const curAnswer = questionArray[current].answer;
+    
+    renderIndexViews(curHint, curAnswer);
+    firebase.auth().onAuthStateChanged(function(user) {
+       
+        if (user) {
 
+            if(user.displayName != null) {
+                displayUserNameOnNavBar(user.displayName);
+                displayUserNavBar();
+            }
 
+            hideBalloon('#saveBtn');
+            $('#saveBtn').click(function() {
+                saveUserDataToDatabase();
+                showToast();
+            });
 
-  $('#rank_body').fadeIn(3000);
- 
+        } else {
+            displayNavBar();     
+        }
+    });
+
+    lettersArray = splitWordIntoLetters(curAnswer);
+    setBtnEvents(); 
+}
+
+const rankInit = () => {
+    const user = getUserDataFromStorage();
+    renderRankViews(user);
+    $('#rank_summary').fadeIn();
+    getUsersDataFromDatabase().then(function(usersArray) {
+        
+        createRankTable(usersArray);
+        $('#tableField').fadeIn();
+    
+    }).catch(function(error) {
+        
+        console.log(error);
+    
+    });
+
+    firebase.auth().onAuthStateChanged(function(user) {
+       
+        if (user) {
+
+            if(user.displayName != null) {
+                displayUserNameOnNavBar(user.displayName);
+                displayUserNavBar();
+            }
+
+        } else {
+            displayNavBar();     
+        }
+    });
+
+    setBtnEvents(); 
+}
+
 
 

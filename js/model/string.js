@@ -8,7 +8,8 @@ const TRIAL_TEXT = "Trial : ";
 const RESTART_BTN = "RESTART";
 const SAVE_BTN = "SAVE";
 
-
+const YES_BTN = "YES";
+const NO_BTN = "NO";
 
 const RESTART_TITLE = "Restart";
 const RESTART_BODY = "Are you sure to restart game? <br>Score will be 0."
@@ -24,6 +25,7 @@ const PASSWORD_ALERT_TEXT = "Please enter valid password.";
 const BALLOON_TEXT = "To save your score, Sign up or Log in.";
 const TOAST_TEXT = "Saved successfully!"
 
+const RANKSUMMARY_HEADER = "Your Achievement!";
 const RANK_HEADER = "RANK";
 const NAME_HEADER = "NAME";
 const TRIAL_HEADER = "TRIAL";

@@ -217,7 +217,7 @@ function getUsersDataFromDatabase() {
     const returnVal = new Promise(function (resolve, reject) {
         setTimeout(function () {
             resolve(usersArray); 
-        }, 1500);
+        }, 1800);
     });
 
     return returnVal;

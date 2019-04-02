@@ -153,7 +153,8 @@ const createSaveBtn = () => {
     const btn = $('<button/>').attr({
         class : 'btn btn-primary buttons',
         id : 'saveBtn'
-    }).text(SAVE_BTN);
+    })
+    .text(SAVE_BTN);
 
     $('#buttons_container').append(btn);
 }
@@ -319,14 +320,14 @@ const createRestartModal = () => {
         id: 'yes',
         class: 'btn btn-primary modalBtns'
     })
-    .text('YES');
+    .text(YES_BTN);
 
     const  noBtn = $('<button/>').attr({
         type: 'button',
         class: 'btn btn-danger modalBtns',
         'data-dismiss': 'modal'
     })
-    .text('NO');
+    .text(NO_BTN);
 
     $('#' + modalName + '_title').append(title);
     $('#' + modalName + '_content').append(message, $img);
@@ -489,7 +490,7 @@ const showToast = () => {
     toastr.options = {
         "closeButton": true,
         "debug": false,
-        "positionClass": "toast-bottom-center",
+        "positionClass": "toast-top-right",
         "onclick": null,
         "showDuration": "1000",
         "hideDuration": "0",
@@ -530,9 +531,9 @@ const createRankSummary = () => {
         class : 'col-12',
         id : 'summaryContainer'
     });
-    const header = $('<h1/>').attr('class', 'summaryHeaders').text('Your Achievement!');
-    const scoreHeader = $('<p/>').attr('class', 'summaryHeaders').text('SCORE');
-    const trialHeader = $('<p/>').attr('class', 'summaryHeaders').text('TRIAL');
+    const header = $('<h1/>').attr('class', 'summaryHeaders').text(RANKSUMMARY_HEADER);
+    const scoreHeader = $('<p/>').attr('class', 'summaryHeaders').text(SCORE_HEADER);
+    const trialHeader = $('<p/>').attr('class', 'summaryHeaders').text(TRIAL_HEADER);
     const score = $('<p/>').attr('id', 'summaryScore').html(0);
     const trial = $('<p/>').attr('id', 'summaryTrial').html(0);
 
@@ -544,7 +545,7 @@ const updateUserSummary = (user_obj) => {
     if(user_obj != null) {
         $('#summaryScore').text(user_obj.score);
         $('#summaryTrial').text(user_obj.trial);
-        
+
         //Clear current user's data after display.
         localStorage.clear();
     }
@@ -575,11 +576,12 @@ const createRankTable = (users_array) => {
 
     //Process all user data.
     for(let i = 0; i < 5; ++i) {
+        console.log(users_array);
         const $tr = $('<tr/>');
         const rank = $('<td/>').text(i + 1);
-        const name = $('<td/>').text(users_array[i].name);
         const trial = $('<td/>').text(users_array[i].trial);
         const score = $('<td/>').text(users_array[i].score);
+        const name = $('<td/>').text(users_array[i].name);
         $($tr).append(rank, name, trial, score);
         $($tbody).append($tr);
     }
@@ -591,12 +593,15 @@ const createRankTable = (users_array) => {
     $('#rank_table').append($div);
 }
 
-const renderRankViews = () => {
+//When page is loaded, rengder components in the page.
+const renderRankViews = (user_obj) => {
     showAppName();
     createNavBar();
     createUserNavbar();
     createSignUpModal();
     createLoginModal();
+    createRankSummary();
+    updateUserSummary(user_obj);
 }
 
 
