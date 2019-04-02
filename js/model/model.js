@@ -1,19 +1,21 @@
 let score = 0;
 let mistake = 0;
 let trial = 1;
-let quizArray;
+let questionArray;
 let currentHint;
 let currentAnswer;
 let lettersArray; /*current word split into a letter*/
 let gameOverFlag = false;
-const STORAGE_KEY = 'currentUser'
+
 
 const hints = [
     "Language for iOS development", 
     "JS library, maintained by Facebook",
     "Free, Interpretred, released in 1991 ",
     "Company provide AWS service",
-    "Who created this game?(*'v'*)"
+    "Who created this game?(*'v'*)",
+    "Languages does not have to compile",
+    ""
 ];
 const answers = [
     "Swift",
@@ -23,44 +25,47 @@ const answers = [
     "Haruna"
 ];
 
+//Create the array of question objects from hints array & answer array.
 const createDataObjArray = (hints, answers, data_size) => {
     let data_array = [];
 
     for(let i = 0; i < data_size; ++i) {
         
-        const obj = {
+        const question = {
             "hint": hints[i],
-            "answer": answers[i],
-            "flag": false /*flag for found or not*/
+            "answer": answers[i]
         };
 
-        data_array.push(obj);
+        data_array.push(question);
     }
-    console.log(data_array)
+
     return data_array;
 }
 
+//Accept a string (Current word) & split it into letters.
 const splitWordIntoLetters = (current_answer) => {
     let lettersArray = [];
     const array = Array.from(current_answer);
     
     for(let i = 0; i < array.length; ++i) {
-        const obj = {
+        const letter = {
             letter: array[i],
             flag: false /*Flag to indicate already found or not*/
         };
-        lettersArray.push(obj);
+        lettersArray.push(letter);
     }
 
     return lettersArray;
 
 }
 
+//Play audio file.
 const playSound = (audio_file) => {
     const sound = new Audio(audio_file);
     sound.play();
 }
 
+//Genrate random index number to pick a question.
 const generateRandomNumber = (data_size) => {
     //Return 0 to n(data_size) randomly.
     const randomNum = Math.floor((Math.random() * data_size) + 0);
@@ -69,11 +74,12 @@ const generateRandomNumber = (data_size) => {
 
 //When user tap a letter button, search the letter from the current word.
 function searchWord(selected_letter) { /*It should not bind "this", so not arrow function*/
-    let flag = false; /*Indicates already found letter or not*/
+    let flag = false; /*Indicates letter is already found or not*/
     
+    //Iterate through the array of letters consists of a current word.
     for(let i = 0; i < lettersArray.length; ++i) {
         
-        //When the letter is found in the current word.
+        //When the selected letter is found.
         if(selected_letter === lettersArray[i].letter.toLowerCase()) {
             
             if(lettersArray[i].flag === false) {
@@ -114,7 +120,6 @@ const isTrialEnd = () => {
     return true;
 }
 
-
 const addScore = () => {
     score++;
 }
@@ -127,6 +132,7 @@ const countMistake = () => {
     mistake++;
 }
 
+//Reset all play data.
 const resetData = () => {
     score = 0;
     trial = 0;
@@ -134,6 +140,7 @@ const resetData = () => {
     gameOverFlag = false;
 }
 
+//Check game over or not.
 const isGameOver = () => {
     
     if(mistake > 6) {
@@ -147,6 +154,7 @@ const setGameOverFlag = () => {
     gameOverFlag = true;
 }
 
+//Save current user's play data to local storage.
 const saveUserDataToStorage = () => {
     const user = {
         score : score,
@@ -155,18 +163,26 @@ const saveUserDataToStorage = () => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
 }
 
+//Save Authenticated user's playdata to firebase Db.
 const saveUserDataToDatabase = () => {
-    //Get the current userID
     const user = firebase.auth().currentUser;
     const userId = user.uid;
+
+    //Store data by user id.
     firebase.database().ref('users/' + userId).set({
         username: user.displayName,
         score: score,
-        trial: trial
+        trial: (trial - 1)
     });
 }
 
-//The function to sort users array in order of score.
+//Get current user's data from local storage.
+const getUserDataFromStorage = () => {
+    const user = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    return user;
+}
+
+//The function to sort users array in order of score.(Descending order)
 const compare = (a,b) => {
     if (a.score > b.score)
       return -1;
@@ -175,12 +191,8 @@ const compare = (a,b) => {
     return 0;
 }
 
-const getUsersDataFromStorage = () => {
-    const user = JSON.parse(localStorage.getItem(STORAGE_KEY));
-    return user;
-}
-
-//Retrieve user names & scores from firebase database, push onto table in rankpage.
+//Get all users' data from firebase database,
+//Sort by score, make an array & return the array.
 function getUsersDataFromDatabase() {
     const ref = firebase.database().ref('users');
     let usersArray = [];
@@ -211,6 +223,7 @@ function getUsersDataFromDatabase() {
     return returnVal;
 }
 
+//Get user input values.
 const getUserInputs = (input_className) => {
     let userInputArray = [];
     
@@ -263,6 +276,7 @@ const validateUserInput = (userInputs) => {
 
 }
 
+//User registration on firebase.
 const createUserAccount = (userInputs) => {
     const email = userInputs[1];
     const password = userInputs[2];
@@ -285,6 +299,7 @@ const createUserAccount = (userInputs) => {
     return returnVal;
 }
 
+//When user creates an account, add user name to the account.
 const addNameToAccount = (userInputs) => {
     const name = userInputs[0];
     const email = userInputs[1];
@@ -319,24 +334,24 @@ const loginToAccount = (userInputs) => {
     const password = userInputs[1];
     let result = false;
 
-    //Log in.
-    firebase.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
+    //Try Log in.
+    firebase.auth().signInWithEmailAndPassword(email, password)
+    
+    //When succeeded.
+    .then(function() {
+        result = true;
+    })
+    
+    //When failed.
+    .catch(function (error) {
         result = error.message;
     });
-
-    firebase.auth().onAuthStateChanged(function (user) {
-
-        //If login successful.
-        if (user) {
-            result = true;
-        }
-    })
     
     const returnVal = new Promise(function (resolve, reject) {
         setTimeout(function () {
             //result = true when sucess. When fail, result will be an error message.
             resolve(result); 
-        }, 1000);
+        }, 1500);
     });
 
     return returnVal;
@@ -347,7 +362,8 @@ const logout = () => {
     firebase.auth().signOut().then(function () {
         firebase.database().goOffline();
         console.log("Logged out.");
-    }).catch(function (error) {
+    })
+    .catch(function (error) {
         console.log(error.message);
     });
 }

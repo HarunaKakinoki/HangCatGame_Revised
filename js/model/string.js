@@ -1,15 +1,19 @@
+const APP_NAME = "HangCat Game";
+const SIGNUP_TEXT = "Sign up";
+const LOGIN_TEXT = "Log in";
+const RANKING_TEXT = "Ranking";
+const LOGOUT_TEXT = "Log out";
 const SCORE_TEXT = "Score : ";
 const TRIAL_TEXT = "Trial : ";
 const RESTART_BTN = "RESTART";
 const SAVE_BTN = "SAVE";
-const APP_NAME = "HangCat Game";
-const SIGNUP_TEXT = "Sign up";
-const LOGIN_TEXT = "Log in";
+
+
+
 const RESTART_TITLE = "Restart";
 const RESTART_BODY = "Are you sure to restart game? <br>Score will be 0."
 const GAME_OVER_TITLE = "GAME OVER";
 const GAME_OVER_BODY = "You have already made mistakes<br> 7 times...";
-const RANKING_TEXT = "Ranking"
 const SUBMIT_BTN = "SUBMIT";
 const SUBMIT_SUCESS_TEXT = "ACCEPTED";
 const SUBMIT_ERROR_TEXT = "REJECTED";
@@ -24,6 +28,7 @@ const RANK_HEADER = "RANK";
 const NAME_HEADER = "NAME";
 const TRIAL_HEADER = "TRIAL";
 const SCORE_HEADER = "SCORE";
+const STORAGE_KEY = 'currentUser'
 
 //Audio files.
 const NEXT_TRIAL_AUDIO_FILE = "../sounds/moveToNext.mp3";

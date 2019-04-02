@@ -4,11 +4,13 @@ html, body {
     height:100%;
     width: 100%;
     font-family: 'Mali', cursive;
+    color: #4B4553;
 }
 
-a { text-decoration: none;}
-
-a:link { text-decoration: none;}
+a:visited, a:link, a:active {
+    text-decoration: none;
+    color: #4B4553;
+}
 
 p { margin: 0;}
 
@@ -36,6 +38,10 @@ p { margin: 0;}
 
 #playdata {
     text-align: center;
+}
+
+.playdataHeaders {
+    font-size: 1.3em;    
 }
 
 #score, #trial {
@@ -143,7 +149,17 @@ p { margin: 0;}
     text-align: center;
 }
 
+#rank_summary {
+    background-image: url('../images/crown.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-position-y: 1.5em;
+    margin: 1em 0;
+}
+
 h1.summaryHeaders {
+    color: orange;
     font-weight: bold;
     font-size: 2em;
     margin: 0.3em;
@@ -222,6 +238,10 @@ h1.summaryHeaders {
         margin:  0 0.3em;
     }
 
+    #playdata {
+        margin : 1em;
+    }
+
     #hint_container {
         margin-top: 1.5em;
     }
@@ -271,9 +291,13 @@ h1.summaryHeaders {
 
     /*********************rank.html**************************/
 
+    #rank_summary {
+        margin: 2em 0;
+    }
+
     h1.summaryHeaders {
         font-size: 1.5em;
-        margin: 0.3em;
+        margin: 0.6em;
     }
 
     .summaryHeaders {
@@ -283,5 +307,4 @@ h1.summaryHeaders {
     #summaryScore, #summaryTrial {
         font-size : 1.2em;
     }
-
 }

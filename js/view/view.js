@@ -3,61 +3,57 @@ const showAppName = () => {
     const appName = $('<a/>').attr({
         href : 'index.html',
         id : 'appName'
-    }).html(APP_NAME);
+    })
+    .html(APP_NAME);
+    
     $('#appName_container').append(appName);
 }
 
 //Navigation bar.
 const createNavBar = () => {
     //Navbar links.
-    const signup = $('<a/>')
-    . attr({
+    const signup = $('<a/>'). attr({
         class : 'navLinks',
         id : 'signup',
         href : '#'
     })
     .text(SIGNUP_TEXT);
 
-    const login = $('<a/>')
-    . attr({
+    const login = $('<a/>'). attr({
         class : 'navLinks',
         id : 'login',
         href : '#'
     })
     .text(LOGIN_TEXT);
 
-    const ranking = $('<a/>')
-    .attr({
+    const ranking = $('<a/>').attr({
         class : 'navLinks',
         href : 'rank.html'
     })
-    .text('Ranking');
+    .text(RANKING_TEXT);
 
     $('#navbar').append(signup, login, ranking);
 }
 
-//Nav bar for user page.(After login)
+//Nav bar for autenticated user.(After login)
 const createUserNavbar = () => {
-    const loginAs = $('<span/>')
-    . attr({
+    const loginAs = $('<span/>'). attr({
         class : 'navLinks',
         id : 'userName'
     });
 
-    const logout = $('<a/>')
-    .attr({
+    const logout = $('<a/>').attr({
         class : 'navLinks',
         id : 'logoutLink',
         href : '#'
     })
-    .text('Log out');
+    .text(LOGOUT_TEXT);
 
-    const ranking = $('<a/>')
-    .attr({
+    const ranking = $('<a/>').attr({
         class : 'navLinks',
         href : 'rank.html'
     })
-    .text('Ranking');
+    .text(RANKING_TEXT);
 
     $('#userNavbar').append(loginAs, logout, ranking);
 }
@@ -67,23 +63,18 @@ const createPlayData = () => {
     const scoreHeader = $('<span/>').attr('class', 'playdataHeaders')
                         .text(SCORE_TEXT); 
     const userScore = $('<span/>').attr('id', 'score')
-                    .text(score);
-
+                        .text(score);
     const trialHeader = $('<span/>').attr('class', 'playdataHeaders')
                         .text(TRIAL_TEXT);
     const numOfTrial = $('<span/>').attr('id', 'trial')
-                    .text(trial);
+                        .text(trial);
     
     $('#playdata').append(scoreHeader, userScore,  trialHeader, numOfTrial);
 }
 
 //Create hangCat image.
 const createHangCatImg = () => {
-    const $div = $('<div/>').attr({
-        class : '',
-        id : 'hangCatImg_container'
-    });
-
+    const $div = $('<div/>').attr('id','hangCatImg_container');
     const img = $('<img/>').attr({
         src : 'images/hangCat/hanged0.png',
         alt : 'hang-cat-image',
@@ -96,23 +87,21 @@ const createHangCatImg = () => {
 
 //Create Restart button.
 const createRestartBtn = () => {
-    const btn = $('<button/>')
-    .attr({
+    const btn = $('<button/>').attr({
         class : 'btn btn-danger buttons',
         id : 'restartBtn',
         'data-toggle': 'modal',
         'data-target': '#restart_modal' /*Trigger restart confirmation modal window*/
-    }).text(RESTART_BTN);
+    })
+    .text(RESTART_BTN);
 
     $('#buttons_container').append(btn);
 }
 
 //Create current hint.
 const createHint = (current_hint) => {
-    const $div = $('<div/>')
-    .attr({
-        id : 'hint'
-    }).text(current_hint);
+    const $div = $('<div/>').attr('id', 'hint')
+                .text(current_hint);
 
     $('#hint_container').append($div);
 }
@@ -133,7 +122,8 @@ const createWord = (current_word) => {
         const letter = $('<span/>').attr({
             class : 'answerLetters',
             id : 'answer' + i
-        }).text(current_word[i]);
+        })
+        .text(current_word[i]);
 
         $($p).append(letter);
         $($div).append($p);
@@ -152,8 +142,6 @@ const createLetters = function() {
             class : 'letterBtns',
             id : letter, /*Eg : 'a' */
             alt : 'letter-img-' + letter
-        }).click(function() {
-            const letter_id = this.id;
         });
 
         $('#letters_container').append(letterImg);
@@ -180,7 +168,8 @@ const modal = (modal_name) => {
         type: 'button',
         class: 'close',
         'data-dismiss': 'modal'
-    }).html('&times;');
+    })
+    .html('&times;');
     const title = $('<h4/>').attr({
         class: 'modal-title',
         id: modal_name + '_title' /* Eg: signup_title*/
@@ -487,6 +476,7 @@ const setBalloon = (element_id, balloon_text) => {
     });
 }
 
+//Hide balloon on a save button.
 const hideBalloon = (element_id) => {
     $(element_id).removeAttr(
         'data-balloon',
@@ -494,6 +484,7 @@ const hideBalloon = (element_id) => {
     );
 }
 
+//Show toast (When Playdata is saved)
 const showToast = () => {
     toastr.options = {
         "closeButton": true,
@@ -553,6 +544,8 @@ const updateUserSummary = (user_obj) => {
     if(user_obj != null) {
         $('#summaryScore').text(user_obj.score);
         $('#summaryTrial').text(user_obj.trial);
+        
+        //Clear current user's data after display.
         localStorage.clear();
     }
 }

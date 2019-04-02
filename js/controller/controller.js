@@ -9,26 +9,31 @@ const setBtnEvents = () => {
         processLetterBtnEvent(letter);
     });
 
+    //Sign up link on navbar.
     $('#signup').click(function() {
         clearModal('.signUpInputs');
         showModal('#signup_modal');
     });
 
+    //Login link on navbar.
     $('#login').click(function() {
         clearModal('.loginInputs');
         showModal('#login_modal');
     });
 
+    //Logout link on authenticated user navbar.
+    $('#logoutLink').click(function() {
+        processLogout();
+    });
+
+    //Submit button on Sign up modal.
     $('#signUpSubmitBtn').click(function() {
         processSignUp();
     });
 
+    //Login button on Sign up modal.
     $('#loginSubmitBtn').click(function() {
         processLogin();
-    });
-
-    $('#logoutLink').click(function() {
-        processLogout();
     });
 
     //Yes Button on the restart modal.
@@ -36,9 +41,11 @@ const setBtnEvents = () => {
 
         if(gameOverFlag === true) {
             $('.letterBtns').click(function () {
+                
                 //Get clicked letter by user.
                 const letter = $(this).attr('id');
                 processLetterBtnEvent(letter);
+            
             });        
         } 
 
@@ -128,10 +135,10 @@ const gameOver = () => {
 
 //Start Game.
 const gameStart = () => {  
-    quizArray = createDataObjArray(hints, answers, 5);
-    const current = generateRandomNumber(quizArray.length);
-    const curHint = quizArray[current].hint;
-    const curAnswer = quizArray[current].answer;
+    questionArray = createDataObjArray(hints, answers, 5);
+    const current = generateRandomNumber(questionArray.length);
+    const curHint = questionArray[current].hint;
+    const curAnswer = questionArray[current].answer;
     
     renderIndexViews(curHint, curAnswer);
     firebase.auth().onAuthStateChanged(function(user) {
@@ -179,9 +186,9 @@ const restartGame = () => {
 
 //Create new hint & word for next trial.
 const createNextTrial = () => {
-    const current = generateRandomNumber(quizArray.length);
-    const curHint = quizArray[current].hint;
-    const curAnswer = quizArray[current].answer;
+    const current = generateRandomNumber(questionArray.length);
+    const curHint = questionArray[current].hint;
+    const curAnswer = questionArray[current].answer;
 
     //Make a sound.
     playSound(NEXT_TRIAL_AUDIO_FILE);
@@ -306,12 +313,17 @@ const processLogin = () => {
 
 const createRankTableFromData = () => {
     createRankSummary();
-    const user = getUsersDataFromStorage();
+    const user = getUserDataFromStorage();
     updateUserSummary(user);
+    
     getUsersDataFromDatabase().then(function(usersArray) {
+        
         createRankTable(usersArray);
+    
     }).catch(function(error) {
+        
         console.log(error);
+    
     });
 }
 
