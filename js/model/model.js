@@ -1,3 +1,4 @@
+const QUESTION_SIZE = 10;
 let score = 0;
 let mistake = 0;
 let trial = 1;
@@ -5,24 +6,34 @@ let questionArray;
 let currentHint;
 let currentAnswer;
 let lettersArray; /*current word split into a letter*/
+let previousIndex = 0; /*To avoid showing same question consecutively*/
 let gameOverFlag = false;
 
 
 const hints = [
     "Language for iOS development", 
     "JS library, maintained by Facebook",
-    "Free, Interpretred, released in 1991 ",
+    "Free, Interpretred, released in 1991",
     "Company provide AWS service",
     "Who created this game?(*'v'*)",
-    "Languages does not have to compile",
-    ""
+    "Open source, OS, Linux",
+    "Cloud Paas, the name starts from H",
+    "Web browser, Gooogle ******",
+    "Class-based, object-oriented language",
+    "Syntactically awesome style sheets :)"
 ];
+
 const answers = [
     "Swift",
     "React",
     "Python",
     "Amazon",
-    "Haruna"
+    "Haruna",
+    "Ubuntu",
+    "Heroku",
+    "Chrome",
+    "Java",
+    "Saas"
 ];
 
 //Create the array of question objects from hints array & answer array.
@@ -68,7 +79,12 @@ const playSound = (audio_file) => {
 //Genrate random index number to pick a question.
 const generateRandomNumber = (data_size) => {
     //Return 0 to n(data_size) randomly.
-    const randomNum = Math.floor((Math.random() * data_size) + 0);
+    let randomNum = Math.floor((Math.random() * data_size) + 0);
+    
+    //To avoid returning the same number as the previous index.
+    while (randomNum === previousIndex) {
+        randomNum = Math.floor((Math.random() * data_size) + 0);
+    }
     return randomNum;
 }
 

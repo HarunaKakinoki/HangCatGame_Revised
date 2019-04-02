@@ -295,10 +295,11 @@ const processLogout = () => {
 
 //Start Game.
 const gameInit = () => {  
-    questionArray = createDataObjArray(hints, answers, 5);
+    questionArray = createDataObjArray(hints, answers, QUESTION_SIZE);
     const current = generateRandomNumber(questionArray.length);
     const curHint = questionArray[current].hint;
     const curAnswer = questionArray[current].answer;
+    previousIndex = current;
     
     renderIndexViews(curHint, curAnswer);
     firebase.auth().onAuthStateChanged(function(user) {
